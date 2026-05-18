@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flasgger import Swagger
 from .models import db
 
 def create_app(test_config=None):
@@ -15,6 +16,7 @@ def create_app(test_config=None):
     
     # Initialize extensions
     db.init_app(app)
+    Swagger(app)
     
     # Register blueprints
     from .routes import api

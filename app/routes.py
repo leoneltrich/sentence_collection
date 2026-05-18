@@ -13,6 +13,13 @@ def index():
 
 @api.route('/download/all')
 def download_all():
+    """
+    Download all sentences as CSV
+    ---
+    responses:
+      200:
+        description: A CSV file containing all sentences
+    """
     sentences = Sentence.query.all()
     
     def generate():
@@ -37,6 +44,20 @@ def download_all():
 
 @api.route('/download/category/<int:category_id>')
 def download_category(category_id):
+    """
+    Download sentences from a specific category as CSV
+    ---
+    parameters:
+      - name: category_id
+        in: path
+        type: integer
+        required: true
+    responses:
+      200:
+        description: A CSV file containing sentences from the category
+      404:
+        description: Category not found
+    """
     category = Category.query.get_or_404(category_id)
     sentences = Sentence.query.filter_by(category_id=category_id).all()
     
@@ -63,6 +84,13 @@ def download_category(category_id):
 
 @api.route('/categories', methods=['GET'])
 def get_categories():
+    """
+    List all categories
+    ---
+    responses:
+      200:
+        description: A list of categories
+    """
     categories = Category.query.all()
     return jsonify([{
         'id': c.id,
@@ -72,6 +100,28 @@ def get_categories():
 
 @api.route('/categories', methods=['POST'])
 def add_category():
+    """
+    Create a new category
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+    responses:
+      201:
+        description: Category created
+      400:
+        description: Invalid input
+      409:
+        description: Category already exists
+    """
     data = request.get_json()
     if not data or 'name' not in data:
         return jsonify({'error': 'Category name is required'}), 400
@@ -90,6 +140,30 @@ def add_category():
 
 @api.route('/sentences', methods=['POST'])
 def add_sentence():
+    """
+    Add a new sentence
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+            category_id:
+              type: integer
+    responses:
+      201:
+        description: Sentence added
+      400:
+        description: Invalid input
+      404:
+        description: Category not found
+      409:
+        description: Sentence already exists (normalized check)
+    """
     data = request.get_json()
     if not data or 'text' not in data or 'category_id' not in data:
         return jsonify({'error': 'Sentence text and category_id are required'}), 400
@@ -119,6 +193,13 @@ def add_sentence():
 
 @api.route('/stats', methods=['GET'])
 def get_stats():
+    """
+    Get sentence statistics
+    ---
+    responses:
+      200:
+        description: Statistics including total count and per-category breakdown
+    """
     total_count = Sentence.query.count()
     
     # Sentence count per category
