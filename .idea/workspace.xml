@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added check to checkbox">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="security hardening">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,23 +41,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0696949102573794" />
-      <entry key="MS500" value="2.3620591588700792" />
-      <entry key="S2" value="4.8190503257533255" />
-      <entry key="S5" value="5.969001062754166" />
-      <entry key="S10" value="6.548343514817184" />
-      <entry key="S30" value="8.787230849949145" />
-      <entry key="S60" value="11.121252333779408" />
-      <entry key="M2" value="13.183225325525589" />
-      <entry key="M5" value="19.707709513452325" />
-      <entry key="M10" value="41.62299903453443" />
-      <entry key="M15" value="63.60409237034361" />
-      <entry key="M30" value="111.87796940429" />
-      <entry key="H1" value="166.4836716330073" />
-      <entry key="H2" value="215.8887942979669" />
-      <entry key="H4" value="251.81159786834155" />
-      <entry key="D1" value="290.88398383207993" />
-      <entry key="W1" value="298.667304880407" />
+      <entry key="MS100" value="1.8115202130426904" />
+      <entry key="MS500" value="4.339355896068858" />
+      <entry key="S2" value="8.610684061976261" />
+      <entry key="S5" value="14.109505402789612" />
+      <entry key="S10" value="19.54681961710739" />
+      <entry key="S30" value="26.155269179336997" />
+      <entry key="S60" value="28.43106280049488" />
+      <entry key="M2" value="29.94435050020981" />
+      <entry key="M5" value="33.68113785475727" />
+      <entry key="M10" value="46.02340685871219" />
+      <entry key="M15" value="62.87336440053274" />
+      <entry key="M30" value="110.16827147622054" />
+      <entry key="H1" value="171.7620645894442" />
+      <entry key="H2" value="230.75389805859595" />
+      <entry key="H4" value="274.8037044805139" />
+      <entry key="D1" value="323.52818697832674" />
+      <entry key="W1" value="333.32063317543356" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -78,23 +79,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0409158187743401" />
-      <entry key="MS500" value="2.350975372895346" />
-      <entry key="S2" value="4.813733562635296" />
-      <entry key="S5" value="5.966386935075099" />
-      <entry key="S10" value="6.546797151356496" />
-      <entry key="S30" value="8.785713312954169" />
-      <entry key="S60" value="11.119890527119562" />
-      <entry key="M2" value="13.18227784753579" />
-      <entry key="M5" value="19.707171444898965" />
-      <entry key="M10" value="41.62254009948348" />
-      <entry key="M15" value="63.6036570262173" />
-      <entry key="M30" value="111.87759175510766" />
-      <entry key="H1" value="166.48337270140516" />
-      <entry key="H2" value="215.888587926906" />
-      <entry key="H4" value="251.81147256910205" />
-      <entry key="D1" value="290.8839587818747" />
-      <entry key="W1" value="298.667301180994" />
+      <entry key="MS100" value="1.745725031536732" />
+      <entry key="MS500" value="4.3057839322582465" />
+      <entry key="S2" value="8.593348992347885" />
+      <entry key="S5" value="14.097964854298526" />
+      <entry key="S10" value="19.538708845463038" />
+      <entry key="S30" value="26.151607685986917" />
+      <entry key="S60" value="28.429066796222696" />
+      <entry key="M2" value="29.943298356407354" />
+      <entry key="M5" value="33.68064297767108" />
+      <entry key="M10" value="46.023035122199474" />
+      <entry key="M15" value="62.87300960302788" />
+      <entry key="M30" value="110.1679368196527" />
+      <entry key="H1" value="171.76177880941194" />
+      <entry key="H2" value="230.75369090297485" />
+      <entry key="H4" value="274.8035751640279" />
+      <entry key="D1" value="323.5281604694832" />
+      <entry key="W1" value="333.320629243059" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -144,7 +145,7 @@
       <updated>1779109457562</updated>
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
-      <workItem from="1779719070616" duration="2792000" />
+      <workItem from="1779719070616" duration="3523000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -186,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779721628934</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="security hardening">
+      <option name="closed" value="true" />
+      <created>1779722147396</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1779722147396</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +207,7 @@
     <MESSAGE value="added page for users to submit their sentence" />
     <MESSAGE value="made submit page more subtle" />
     <MESSAGE value="added check to checkbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="added check to checkbox" />
+    <MESSAGE value="security hardening" />
+    <option name="LAST_COMMIT_MESSAGE" value="security hardening" />
   </component>
 </project>

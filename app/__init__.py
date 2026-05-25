@@ -33,5 +33,15 @@ def create_app(test_config=None):
     # Register blueprints
     from .routes import api
     app.register_blueprint(api, url_prefix='/')
+
+    @app.route('/')
+    def index():
+        from flask import render_template
+        return render_template('index.html')
+
+    @app.route('/submit')
+    def submit_page():
+        from flask import render_template
+        return render_template('submit.html')
     
     return app

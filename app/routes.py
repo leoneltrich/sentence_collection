@@ -8,14 +8,6 @@ from . import limiter
 
 api = Blueprint('api', __name__)
 
-@api.route('/')
-def index():
-    return render_template('index.html')
-
-@api.route('/submit')
-def submit_page():
-    return render_template('submit.html')
-
 @api.route('/download/all')
 def download_all():
     """
@@ -31,14 +23,14 @@ def download_all():
     def generate():
         data = io.StringIO()
         writer = csv.writer(data)
-        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Category', 'Giveaway Email'])
+        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Category', 'Source', 'Giveaway Email'])
         yield data.getvalue()
         data.seek(0)
         data.truncate(0)
 
         for s in sentences:
             email = s.giveaway_entry.email if s.giveaway_entry else ''
-            writer.writerow([s.id, s.original_text, s.normalized_text, s.category.name, email])
+            writer.writerow([s.id, s.original_text, s.normalized_text, s.category.name, s.source or '', email])
             yield data.getvalue()
             data.seek(0)
             data.truncate(0)
@@ -71,13 +63,13 @@ def download_category(category_id):
     def generate():
         data = io.StringIO()
         writer = csv.writer(data)
-        writer.writerow(['ID', 'Original Text', 'Normalized Text'])
+        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Source'])
         yield data.getvalue()
         data.seek(0)
         data.truncate(0)
 
         for s in sentences:
-            writer.writerow([s.id, s.original_text, s.normalized_text])
+            writer.writerow([s.id, s.original_text, s.normalized_text, s.source or ''])
             yield data.getvalue()
             data.seek(0)
             data.truncate(0)
@@ -165,6 +157,9 @@ def add_sentence():
               type: integer
             email:
               type: string
+            source:
+              type: string
+              enum: [manual, survey, llm]
     responses:
       201:
         description: Sentence added
@@ -184,6 +179,11 @@ def add_sentence():
     category_id = data['category_id']
     email = data.get('email')
     
+    # Handle source validation
+    source = data.get('source')
+    if source not in ['manual', 'survey', 'llm']:
+        source = None
+    
     # Verify category exists
     category = Category.query.get(category_id)
     if not category:
@@ -193,7 +193,8 @@ def add_sentence():
         new_sentence = Sentence(
             original_text=original_text,
             normalized_text=normalized_text,
-            category_id=category_id
+            category_id=category_id,
+            source=source
         )
         db.session.add(new_sentence)
         db.session.flush() # Get the ID before committing

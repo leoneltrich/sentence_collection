@@ -18,6 +18,7 @@ class Sentence(db.Model):
     original_text = db.Column(db.Text, nullable=False)
     normalized_text = db.Column(db.Text, nullable=False, unique=True)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    source = db.Column(db.String(20), nullable=True) # survey, manual, llm, or null
     
     # 1:1 Relationship to giveaway entry
     giveaway_entry = db.relationship('GiveawayEntry', backref='sentence', uselist=False)

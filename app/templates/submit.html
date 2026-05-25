@@ -246,7 +246,8 @@
             
             const payload = {
                 text: document.getElementById('sentence-text').value,
-                category_id: parseInt(document.getElementById('category-select').value)
+                category_id: parseInt(document.getElementById('category-select').value),
+                source: 'survey'
             };
 
             const email = document.getElementById('email-input').value;

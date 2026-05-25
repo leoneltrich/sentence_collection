@@ -152,7 +152,8 @@
             
             const payload = {
                 text: document.getElementById('sentence-text').value,
-                category_id: parseInt(document.getElementById('category-select').value)
+                category_id: parseInt(document.getElementById('category-select').value),
+                source: 'manual'
             };
 
             try {
