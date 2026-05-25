@@ -50,6 +50,7 @@
         .sub-title {
             font-size: 0.95rem;
             opacity: 0.9;
+            max-width: 600px;
         }
 
         .submission-card {
@@ -58,13 +59,13 @@
             border: none;
             border-radius: var(--border-radius);
             box-shadow: 0 4px 15px rgba(79, 77, 177, 0.15);
-            max-width: 500px; /* Reduced from 650px */
+            max-width: 500px;
             width: 100%;
             overflow: hidden;
         }
 
         .card-body {
-            padding: 2rem !important; /* Reduced from 3rem */
+            padding: 2rem !important;
         }
 
         .form-label {
@@ -95,27 +96,40 @@
         }
 
         .btn-submit {
-            background-color: var(--brand-bg);
-            color: var(--brand-primary);
+            background-color: var(--brand-bg) !important;
+            color: var(--brand-primary) !important;
             border: none;
             border-radius: var(--border-radius);
             padding: 12px;
-            transition: transform 0.2s, background-color 0.2s;
+            transition: transform 0.2s;
             font-size: 1rem;
             margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 54px;
+            opacity: 1 !important; /* Force full opacity always */
         }
 
-        .btn-submit:hover {
-            background-color: var(--brand-white);
-            color: var(--brand-primary);
+        .btn-submit:hover:not(:disabled) {
+            background-color: var(--brand-white) !important;
             transform: translateY(-1px);
         }
 
-        .category-desc {
+        .btn-submit:disabled {
+            cursor: default;
+        }
+
+        .category-desc, .notice-text {
             font-style: italic;
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.85);
             margin-top: 6px;
+        }
+
+        .notice-text {
+            text-align: center;
+            display: block;
         }
 
         .giveaway-section {
@@ -132,13 +146,6 @@
         #email-group {
             display: none;
             margin-top: 12px;
-        }
-        
-        .alert {
-            border-radius: var(--border-radius);
-            border: none;
-            font-size: 0.9rem;
-            padding: 12px;
         }
 
         .form-check-input {
@@ -157,13 +164,21 @@
             box-shadow: none;
             border-color: var(--brand-white);
         }
+
+        .checkmark-icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 3;
+            fill: none;
+        }
     </style>
 </head>
 <body>
     <div class="container d-flex flex-column align-items-center">
         <div class="page-header text-center">
             <h1 class="main-title">Sentence Collection</h1>
-            <p class="sub-title semi-bold-text">Proof of Concept: Natural Language Integration</p>
+            <p class="sub-title semi-bold-text">Natural Language-Based Command Option Retrieval Using a Local-First Approach: A Proof of Concept</p>
         </div>
 
         <div class="card submission-card shadow">
@@ -196,14 +211,19 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-submit w-100" id="submit-btn">Transmit Sentence</button>
+                    <button type="submit" class="btn btn-submit w-100" id="submit-btn">
+                        <span id="btn-text">Transmit Sentence</span>
+                    </button>
+                    <div id="feedback" class="notice-text"></div>
                 </form>
-                <div id="feedback" class="mt-3"></div>
             </div>
         </div>
     </div>
 
     <script>
+        const checkmarkSvg = `<svg class="checkmark-icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>`;
+        const defaultBtnText = "Transmit Sentence";
+
         async function loadCategories() {
             try {
                 const response = await fetch('/categories');
@@ -219,6 +239,17 @@
             } catch (err) {
                 console.error('Error loading categories:', err);
             }
+        }
+
+        function resetUI() {
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const feedback = document.getElementById('feedback');
+            
+            btn.disabled = false;
+            btn.classList.remove('success');
+            btnText.innerHTML = defaultBtnText;
+            feedback.textContent = '';
         }
 
         document.getElementById('category-select').addEventListener('change', function() {
@@ -243,6 +274,7 @@
             e.preventDefault();
             const feedback = document.getElementById('feedback');
             const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
             
             const payload = {
                 text: document.getElementById('sentence-text').value,
@@ -255,7 +287,7 @@
 
             try {
                 btn.disabled = true;
-                btn.textContent = 'Transmitting...';
+                btnText.textContent = 'Transmitting...';
                 
                 const response = await fetch('/sentences', {
                     method: 'POST',
@@ -265,18 +297,24 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    feedback.innerHTML = `<div class="alert alert-light text-primary"><strong>SUCCESS:</strong> Sentence Recorded. Thank you!</div>`;
+                    // Success State
+                    btnText.innerHTML = checkmarkSvg;
                     document.getElementById('submission-form').reset();
                     document.getElementById('email-group').style.display = 'none';
                     document.getElementById('selected-category-desc').textContent = '';
                 } else {
-                    feedback.innerHTML = `<div class="alert alert-light text-danger"><strong>NOTICE:</strong> ${result.error}</div>`;
+                    // Error Notice under button
+                    feedback.textContent = result.error;
+                    btnText.textContent = defaultBtnText;
+                    btn.disabled = false;
                 }
             } catch (err) {
-                feedback.innerHTML = `<div class="alert alert-light text-danger"><strong>ERROR:</strong> Transmission failed.</div>`;
-            } finally {
+                feedback.textContent = 'Transmission failed. Please try again.';
+                btnText.textContent = defaultBtnText;
                 btn.disabled = false;
-                btn.textContent = 'Transmit Sentence';
+            } finally {
+                // Auto-reset after 5 seconds
+                setTimeout(resetUI, 5000);
             }
         });
 
