@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added swagger">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added page for users to submit their sentence">
+      <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,29 +19,41 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "leoneltrich"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/leoneltrich/sentence_collection.git",
+    "accountId": "5a4f28e6-41bd-4703-beb3-f4825cfa1e0f"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.762102334577298" />
-      <entry key="MS500" value="5.143666686237292" />
-      <entry key="S2" value="10.941806300463542" />
-      <entry key="S5" value="13.621885300277704" />
-      <entry key="S10" value="14.740972563301094" />
-      <entry key="S30" value="15.568410247649293" />
-      <entry key="S60" value="16.148497164565295" />
-      <entry key="M2" value="20.758792175463686" />
-      <entry key="M5" value="47.52927899564382" />
-      <entry key="M10" value="78.81370118547332" />
-      <entry key="M15" value="97.41578667606719" />
-      <entry key="M30" value="132.14538446342567" />
-      <entry key="H1" value="171.40918819226954" />
-      <entry key="H2" value="207.47516157715597" />
-      <entry key="H4" value="233.77937681412928" />
-      <entry key="D1" value="262.3478540556955" />
-      <entry key="W1" value="268.0278790679328" />
+      <entry key="MS100" value="1.0216858377291238" />
+      <entry key="MS500" value="2.035327948469143" />
+      <entry key="S2" value="5.22590542803176" />
+      <entry key="S5" value="8.56488270845315" />
+      <entry key="S10" value="11.015136949673254" />
+      <entry key="S30" value="15.603794619366175" />
+      <entry key="S60" value="20.231986131028926" />
+      <entry key="M2" value="27.295906271464528" />
+      <entry key="M5" value="53.9029707921979" />
+      <entry key="M10" value="86.37527817594926" />
+      <entry key="M15" value="106.20168665699842" />
+      <entry key="M30" value="142.8728158356058" />
+      <entry key="H1" value="183.62001144136812" />
+      <entry key="H2" value="220.7818170336185" />
+      <entry key="H4" value="247.82388431773327" />
+      <entry key="D1" value="277.16891594647905" />
+      <entry key="W1" value="283.001757321015" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -66,23 +75,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.694816379519798" />
-      <entry key="MS500" value="5.104061765160644" />
-      <entry key="S2" value="10.920166622678789" />
-      <entry key="S5" value="13.611056890656199" />
-      <entry key="S10" value="14.735105176046781" />
-      <entry key="S30" value="15.566342863722532" />
-      <entry key="S60" value="16.14742553764983" />
-      <entry key="M2" value="20.758086643089765" />
-      <entry key="M5" value="47.52854053471884" />
-      <entry key="M10" value="78.813045863204" />
-      <entry key="M15" value="97.41522883309611" />
-      <entry key="M30" value="132.14497120620106" />
-      <entry key="H1" value="171.40888861266035" />
-      <entry key="H2" value="207.4749645935841" />
-      <entry key="H4" value="233.77926036602375" />
-      <entry key="D1" value="262.3478313237721" />
-      <entry key="W1" value="268.02787572513427" />
+      <entry key="MS100" value="0.9937615663375137" />
+      <entry key="MS500" value="2.0246880404592895" />
+      <entry key="S2" value="5.21911725068374" />
+      <entry key="S5" value="8.559758390267547" />
+      <entry key="S10" value="11.011447451618295" />
+      <entry key="S30" value="15.601857160436944" />
+      <entry key="S60" value="20.230691244907838" />
+      <entry key="M2" value="27.29500874352455" />
+      <entry key="M5" value="53.902172856408384" />
+      <entry key="M10" value="86.37458776125925" />
+      <entry key="M15" value="106.20109973834795" />
+      <entry key="M30" value="142.87238359383844" />
+      <entry key="H1" value="183.61970056060923" />
+      <entry key="H2" value="220.78161356987385" />
+      <entry key="H4" value="247.82376430183263" />
+      <entry key="D1" value="277.16889255615445" />
+      <entry key="W1" value="283.0017538822714" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -132,7 +141,7 @@
       <updated>1779109457562</updated>
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
-      <workItem from="1779719070616" duration="1369000" />
+      <workItem from="1779719070616" duration="2146000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -150,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779121399008</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added page for users to submit their sentence">
+      <option name="closed" value="true" />
+      <created>1779720599721</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779720599721</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,6 +176,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="added swagger" />
-    <option name="LAST_COMMIT_MESSAGE" value="added swagger" />
+    <MESSAGE value="added page for users to submit their sentence" />
+    <option name="LAST_COMMIT_MESSAGE" value="added page for users to submit their sentence" />
   </component>
 </project>
