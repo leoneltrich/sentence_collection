@@ -1,10 +1,21 @@
 import os
 from flask import Flask
 from flasgger import Swagger
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from .models import db
+
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://",
+)
 
 def create_app(test_config=None):
     app = Flask(__name__)
+    
+    # Security: Limit request size to 1MB to prevent memory exhaustion
+    app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
     
     # Configuration
     if test_config is None:
@@ -17,6 +28,7 @@ def create_app(test_config=None):
     # Initialize extensions
     db.init_app(app)
     Swagger(app)
+    limiter.init_app(app)
     
     # Register blueprints
     from .routes import api

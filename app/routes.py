@@ -4,6 +4,7 @@ import csv
 from sqlalchemy.exc import IntegrityError
 from .models import db, Sentence, Category
 from .utils import normalize_sentence
+from . import limiter
 
 api = Blueprint('api', __name__)
 
@@ -105,6 +106,7 @@ def get_categories():
     } for c in categories])
 
 @api.route('/categories', methods=['POST'])
+@limiter.limit("10 per minute")
 def add_category():
     """
     Create a new category
@@ -145,6 +147,7 @@ def add_category():
         return jsonify({'error': 'Category already exists'}), 409
 
 @api.route('/sentences', methods=['POST'])
+@limiter.limit("20 per minute")
 def add_sentence():
     """
     Add a new sentence
@@ -208,6 +211,7 @@ def add_sentence():
         return jsonify({'error': 'Sentence already existed and was not added'}), 409
 
 @api.route('/stats', methods=['GET'])
+@limiter.limit("60 per minute")
 def get_stats():
     """
     Get sentence statistics

@@ -9,6 +9,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
+# Security: Run as non-root user
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
 # Expose port
 EXPOSE 5000
 
