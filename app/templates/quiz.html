@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Command Quiz - Convention 2026</title>
+    <!-- Libre Baskerville Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #4F4DB1;
+            --brand-bg: #C9CEFF;
+            --brand-white: #FFFFFF;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--brand-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--brand-primary);
+        }
+
+        h1, h2, h3, h4, h5, h6, strong { font-weight: 700; }
+        p, label, span, .btn, .semi-bold-text { font-weight: 600; }
+
+        .page-header { color: var(--brand-primary); margin-bottom: 1.5rem; }
+        h1.main-title { font-size: 2rem; margin-bottom: 0.25rem; }
+        .sub-title { font-size: 0.95rem; opacity: 0.9; }
+
+        .quiz-card {
+            background-color: var(--brand-primary);
+            color: var(--brand-white);
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(79, 77, 177, 0.15);
+            max-width: 550px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .card-body { padding: 2rem !important; }
+
+        .option-btn {
+            background-color: var(--brand-bg);
+            color: var(--brand-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            text-align: left;
+            transition: all 0.2s;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        .option-btn:hover {
+            background-color: var(--brand-white);
+            transform: translateX(5px);
+        }
+
+        .option-btn.selected {
+            background-color: var(--brand-white);
+            border: 2px solid var(--brand-primary);
+        }
+
+        .progress-bar-container {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--brand-bg);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .btn-submit {
+            background-color: var(--brand-bg) !important;
+            color: var(--brand-primary) !important;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 12px;
+            font-size: 1rem;
+            min-height: 54px;
+            opacity: 1 !important;
+        }
+
+        .btn-submit:hover:not(:disabled) { background-color: var(--brand-white) !important; }
+
+        .notice-text {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .form-control {
+            background-color: var(--brand-bg);
+            border: none;
+            color: var(--brand-primary);
+            border-radius: var(--border-radius);
+            padding: 10px 14px;
+        }
+
+        .hidden { display: none !important; }
+        
+        .summary-stat {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--brand-bg);
+            color: var(--brand-primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex flex-column align-items-center">
+        <div class="page-header text-center">
+            <h1 class="main-title">Are you a CLI Novice or Expert?</h1>
+            <p class="sub-title semi-bold-text">Test your CLI knowledge and help our study!</p>
+        </div>
+
+        <div class="card quiz-card shadow">
+            <div class="card-body">
+                <!-- Progress -->
+                <div id="quiz-progress" class="progress-bar-container">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+
+                <!-- Quiz Screen -->
+                <div id="question-screen">
+                    <h5 id="question-text" class="mb-4">Loading question...</h5>
+                    <div id="options-container" class="d-flex flex-column">
+                        <!-- Options injected here -->
+                    </div>
+                </div>
+
+                <!-- Results Screen -->
+                <div id="results-screen" class="hidden">
+                    <h3 class="text-center mb-4">Quiz Complete!</h3>
+                    <div class="summary-stat">
+                        You scored: <strong id="final-score">0</strong> / 10<br>
+                        Level: <span id="user-level" class="level-badge mt-2">Beginner</span>
+                    </div>
+                    
+                    <hr style="border-color: rgba(255,255,255,0.2)">
+                    
+                    <div id="study-opt-in-section">
+                        <p class="small text-center mb-3">Would you like to opt into our study and get a chance to win a 15€ Amazon gift card? You'll receive a follow-up email to help evaluate our system.</p>
+                        <div class="mb-3">
+                            <label class="form-label small">Email Address</label>
+                            <input type="email" id="study-email" class="form-control" placeholder="your@email.com">
+                        </div>
+                        <button id="save-results-btn" class="btn btn-submit w-100">Submit to Study</button>
+                    </div>
+
+                    <button onclick="location.reload()" class="btn btn-link text-white w-100 mt-3 small opacity-75 text-decoration-none">Retake Quiz</button>
+                    <div id="feedback" class="notice-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "What command do you use to display the absolute path of the directory you are currently in?", a: "pwd", o: ["cd", "dir", "pwd", "path", "I don't know"] },
+            { q: "You are in /home/user/projects/data. You type cd .. and press Enter. Where are you now?", a: "/home/user/projects", o: ["/home/user/projects", "/home/user", "/home/user/projects/data/..", "An error will occur.", "I don't know"] },
+            { q: "If a program is currently running in your terminal and you want to forcefully stop or terminate it, what keyboard shortcut do you press?", a: "Ctrl+C", o: ["Esc", "Ctrl+X", "Ctrl+C", "Ctrl+Z", "I don't know"] },
+            { q: "What is the primary purpose of the cat command?", a: "To print the contents of a file directly to the terminal.", o: ["To search for specific words inside a file.", "To print the contents of a file directly to the terminal.", "To combine two directories together.", "To view the system hardware catalog.", "I don't know"] },
+            { q: "Which command would you use to search for the specific word \"error\" inside a text file named app.log?", a: "grep \"error\" app.log", o: ["find \"error\" app.log", "search app.log --text=\"error\"", "grep \"error\" app.log", "cat app.log | match \"error\"", "I don't know"] },
+            { q: "How do you change the permissions of a script named run.sh to make it executable by the current user?", a: "chmod +x run.sh", o: ["chmod +x run.sh", "chown root run.sh", "make run.sh executable", "attrib +e run.sh", "I don't know"] },
+            { q: "What does the pipe operator (|) do in a command sequence like cat data.txt | grep \"failed\"?", a: "It takes the standard output (stdout) of the first command and passes it as the standard input (stdin) to the second.", o: ["It runs the first command, waits for it to finish, then runs the second.", "It takes the standard output (stdout) of the first command and passes it as the standard input (stdin) to the second.", "It writes the output of both commands into a shared temporary file.", "It runs both commands simultaneously in the background.", "I don't know"] },
+            { q: "You want to continuously watch the bottom of a log file as new lines are written to it in real-time. What command achieves this?", a: "tail -f app.log", o: ["watch app.log", "less --stream app.log", "tail -f app.log", "cat --live app.log"] },
+            { q: "Using the find command, how do you locate all files ending in .tmp and immediately delete them within that exact same command?", a: "find . -name \"*.tmp\" -delete", o: ["find . -name \"*.tmp\" | rm", "find . -name \"*.tmp\" -delete", "find . -type \"*.tmp\" --remove", "rm $(find \"*.tmp\")", "I don't know"] },
+            { q: "You have a comma-separated file named users.csv. How would you extract only the second column (e.g., the usernames) and print it to the terminal?", a: "cut -d',' -f2 users.csv", o: ["cut -d',' -f2 users.csv", "grep --column=2 users.csv", "column -extract 2 users.csv", "awk '{print column 2}' users.csv", "I don't know"] }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let shuffledQuiz = [];
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startQuiz() {
+            shuffledQuiz = shuffle([...quizData]);
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = shuffledQuiz[currentQuestionIndex];
+            document.getElementById('question-text').textContent = (currentQuestionIndex + 1) + ". " + question.q;
+            
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            // Shuffle options for extra challenge
+            const options = [...question.o];
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.onclick = () => handleAnswer(opt);
+                container.appendChild(btn);
+            });
+
+            document.getElementById('progress-fill').style.width = ((currentQuestionIndex / shuffledQuiz.length) * 100) + "%";
+        }
+
+        function handleAnswer(selected) {
+            const correct = shuffledQuiz[currentQuestionIndex].a;
+            if (selected === correct) score++;
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < shuffledQuiz.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function getLevel(s) {
+            if (s <= 3) return "Beginner";
+            if (s <= 7) return "Intermediate";
+            return "Expert";
+        }
+
+        function showResults() {
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('quiz-progress').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+            
+            document.getElementById('final-score').textContent = score;
+            const level = getLevel(score);
+            document.getElementById('user-level').textContent = level;
+        }
+
+        document.getElementById('save-results-btn').addEventListener('click', async () => {
+            const email = document.getElementById('study-email').value;
+            const feedback = document.getElementById('feedback');
+            const btn = document.getElementById('save-results-btn');
+
+            if (!email || !email.includes('@')) {
+                feedback.textContent = "Please enter a valid email address.";
+                return;
+            }
+
+            try {
+                btn.disabled = true;
+                btn.textContent = "Saving...";
+                
+                const response = await fetch('/quiz/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        score: score,
+                        total: shuffledQuiz.length,
+                        level: getLevel(score).toLowerCase()
+                    })
+                });
+                
+                const result = await response.json();
+                if (response.ok) {
+                    feedback.textContent = result.message;
+                    document.getElementById('study-opt-in-section').classList.add('hidden');
+                } else {
+                    feedback.textContent = result.error;
+                    btn.disabled = false;
+                    btn.textContent = "Submit to Study";
+                }
+            } catch (err) {
+                feedback.textContent = "Error saving results. Please try again.";
+                btn.disabled = false;
+                btn.textContent = "Submit to Study";
+            }
+        });
+
+        startQuiz();
+    </script>
+</body>
+</html>
