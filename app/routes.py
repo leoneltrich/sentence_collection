@@ -11,6 +11,10 @@ api = Blueprint('api', __name__)
 def index():
     return render_template('index.html')
 
+@api.route('/submit')
+def submit_page():
+    return render_template('submit.html')
+
 @api.route('/download/all')
 def download_all():
     """
@@ -20,18 +24,20 @@ def download_all():
       200:
         description: A CSV file containing all sentences
     """
-    sentences = Sentence.query.all()
+    from sqlalchemy.orm import joinedload
+    sentences = Sentence.query.options(joinedload(Sentence.giveaway_entry), joinedload(Sentence.category)).all()
     
     def generate():
         data = io.StringIO()
         writer = csv.writer(data)
-        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Category'])
+        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Category', 'Giveaway Email'])
         yield data.getvalue()
         data.seek(0)
         data.truncate(0)
 
         for s in sentences:
-            writer.writerow([s.id, s.original_text, s.normalized_text, s.category.name])
+            email = s.giveaway_entry.email if s.giveaway_entry else ''
+            writer.writerow([s.id, s.original_text, s.normalized_text, s.category.name, email])
             yield data.getvalue()
             data.seek(0)
             data.truncate(0)
@@ -154,6 +160,8 @@ def add_sentence():
               type: string
             category_id:
               type: integer
+            email:
+              type: string
     responses:
       201:
         description: Sentence added
@@ -171,6 +179,7 @@ def add_sentence():
     original_text = data['text']
     normalized_text = normalize_sentence(original_text)
     category_id = data['category_id']
+    email = data.get('email')
     
     # Verify category exists
     category = Category.query.get(category_id)
@@ -184,6 +193,13 @@ def add_sentence():
             category_id=category_id
         )
         db.session.add(new_sentence)
+        db.session.flush() # Get the ID before committing
+
+        if email:
+            from .models import GiveawayEntry
+            entry = GiveawayEntry(email=email, sentence_id=new_sentence.id)
+            db.session.add(entry)
+
         db.session.commit()
         return jsonify({'message': 'Sentence added successfully', 'id': new_sentence.id}), 201
     except IntegrityError:

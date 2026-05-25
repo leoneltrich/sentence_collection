@@ -18,3 +18,13 @@ class Sentence(db.Model):
     original_text = db.Column(db.Text, nullable=False)
     normalized_text = db.Column(db.Text, nullable=False, unique=True)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    
+    # 1:1 Relationship to giveaway entry
+    giveaway_entry = db.relationship('GiveawayEntry', backref='sentence', uselist=False)
+
+class GiveawayEntry(db.Model):
+    __tablename__ = 'giveaway_entries'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    sentence_id = db.Column(db.Integer, db.ForeignKey('sentences.id'), nullable=False, unique=True)
