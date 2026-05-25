@@ -29,3 +29,13 @@ class GiveawayEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
     sentence_id = db.Column(db.Integer, db.ForeignKey('sentences.id'), nullable=False, unique=True)
+
+class QuizResult(db.Model):
+    __tablename__ = 'quiz_results'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    total_questions = db.Column(db.Integer, nullable=False)
+    level = db.Column(db.String(50), nullable=False) # beginner, intermediate, expert
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())

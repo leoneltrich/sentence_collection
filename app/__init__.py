@@ -43,5 +43,10 @@ def create_app(test_config=None):
     def submit_page():
         from flask import render_template
         return render_template('submit.html')
+
+    @app.route('/quiz')
+    def quiz_page():
+        from flask import render_template
+        return render_template('quiz.html')
     
     return app

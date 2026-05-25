@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="Added source types for sentences">
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="fixed styles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,23 +40,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0000000000003246" />
-      <entry key="S30" value="1.0003379021892345" />
-      <entry key="S60" value="1.0642752861534353" />
-      <entry key="M2" value="2.1454257113211455" />
-      <entry key="M5" value="10.421236072460955" />
-      <entry key="M10" value="26.19212956741751" />
-      <entry key="M15" value="43.209406808958626" />
-      <entry key="M30" value="91.77616528164144" />
-      <entry key="H1" value="158.84386297323988" />
-      <entry key="H2" value="225.5559806394918" />
-      <entry key="H4" value="276.41776915516476" />
-      <entry key="D1" value="333.4655283624915" />
-      <entry key="W1" value="345.0164103907406" />
+      <entry key="MS100" value="1.0015402919820424" />
+      <entry key="MS500" value="1.4756266979056507" />
+      <entry key="S2" value="2.451380160206332" />
+      <entry key="S5" value="3.6980820515413244" />
+      <entry key="S10" value="5.444002681776356" />
+      <entry key="S30" value="7.965946567474503" />
+      <entry key="S60" value="8.899059963797738" />
+      <entry key="M2" value="9.427021475288464" />
+      <entry key="M5" value="9.95627008031398" />
+      <entry key="M10" value="13.094234805606641" />
+      <entry key="M15" value="20.35604183592784" />
+      <entry key="M30" value="54.69562945018031" />
+      <entry key="H1" value="121.13683522614693" />
+      <entry key="H2" value="199.60132727130704" />
+      <entry key="H4" value="264.83650736836637" />
+      <entry key="D1" value="342.1259800182588" />
+      <entry key="W1" value="358.2220577801329" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -76,23 +78,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="3.5983932350756395E-9" />
-      <entry key="MS500" value="0.02047489693528692" />
-      <entry key="S2" value="0.37827307606388744" />
-      <entry key="S5" value="0.6778321634000004" />
-      <entry key="S10" value="0.8233056318285056" />
-      <entry key="S30" value="0.9375840878702087" />
-      <entry key="S60" value="1.0323871424637359" />
-      <entry key="M2" value="2.1293244253388908" />
-      <entry key="M5" value="10.414660530837283" />
-      <entry key="M10" value="26.188714857744273" />
-      <entry key="M15" value="43.207031667271714" />
-      <entry key="M30" value="91.77482446054378" />
-      <entry key="H1" value="158.84306978699203" />
-      <entry key="H2" value="225.55551463041223" />
-      <entry key="H4" value="276.4175076266427" />
-      <entry key="D1" value="333.46547918071354" />
-      <entry key="W1" value="345.01640319903805" />
+      <entry key="MS100" value="0.6698081258086063" />
+      <entry key="MS500" value="1.330182007697122" />
+      <entry key="S2" value="2.3726598598742337" />
+      <entry key="S5" value="3.639089200180435" />
+      <entry key="S10" value="5.394782784770279" />
+      <entry key="S30" value="7.940112957536243" />
+      <entry key="S60" value="8.884408346890178" />
+      <entry key="M2" value="9.419205900848247" />
+      <entry key="M5" value="9.952951826564593" />
+      <entry key="M10" value="13.092242987347856" />
+      <entry key="M15" value="20.35442343083373" />
+      <entry key="M30" value="54.694449902432886" />
+      <entry key="H1" value="121.1360151136602" />
+      <entry key="H2" value="199.60080246435274" />
+      <entry key="H4" value="264.8361996089484" />
+      <entry key="D1" value="342.1259199137458" />
+      <entry key="W1" value="358.2220489327538" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -142,7 +144,7 @@
       <updated>1779109457562</updated>
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
-      <workItem from="1779719070616" duration="4487000" />
+      <workItem from="1779719070616" duration="6073000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -200,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779722969018</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fixed styles">
+      <option name="closed" value="true" />
+      <created>1779723748375</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1779723748375</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,6 +224,7 @@
     <MESSAGE value="added check to checkbox" />
     <MESSAGE value="security hardening" />
     <MESSAGE value="Added source types for sentences" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added source types for sentences" />
+    <MESSAGE value="fixed styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed styles" />
   </component>
 </project>

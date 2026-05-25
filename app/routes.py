@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, Response
+from flask import Blueprint, request, jsonify, Response
 import io
 import csv
 from sqlalchemy.exc import IntegrityError
@@ -238,3 +238,49 @@ def get_stats():
         'total_sentences': total_count,
         'category_stats': category_stats
     })
+
+@api.route('/quiz/submit', methods=['POST'])
+@limiter.limit("10 per minute")
+def submit_quiz():
+    """
+    Submit quiz results
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            score:
+              type: integer
+            total:
+              type: integer
+            level:
+              type: string
+    responses:
+      201:
+        description: Quiz result stored
+      400:
+        description: Invalid input
+    """
+    data = request.get_json()
+    if not data or 'email' not in data or 'score' not in data or 'level' not in data:
+        return jsonify({'error': 'Missing required quiz data'}), 400
+    
+    try:
+        from .models import QuizResult
+        new_result = QuizResult(
+            email=data['email'],
+            score=data['score'],
+            total_questions=data.get('total', 10),
+            level=data['level']
+        )
+        db.session.add(new_result)
+        db.session.commit()
+        return jsonify({'message': 'Quiz results saved. Thank you for participating!'}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
