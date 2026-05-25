@@ -81,6 +81,38 @@ def download_category(category_id):
         headers={'Content-Disposition': f'attachment; filename={filename}'}
     )
 
+@api.route('/download/quiz')
+def download_quiz():
+    """
+    Download all quiz results as CSV
+    ---
+    responses:
+      200:
+        description: A CSV file containing all quiz results
+    """
+    from .models import QuizResult
+    results = QuizResult.query.all()
+    
+    def generate():
+        data = io.StringIO()
+        writer = csv.writer(data)
+        writer.writerow(['ID', 'Email', 'Score', 'Total Questions', 'Level', 'Timestamp'])
+        yield data.getvalue()
+        data.seek(0)
+        data.truncate(0)
+
+        for r in results:
+            writer.writerow([r.id, r.email, r.score, r.total_questions, r.level, r.created_at])
+            yield data.getvalue()
+            data.seek(0)
+            data.truncate(0)
+
+    return Response(
+        generate(),
+        mimetype='text/csv',
+        headers={'Content-Disposition': 'attachment; filename=quiz_results.csv'}
+    )
+
 @api.route('/categories', methods=['GET'])
 def get_categories():
     """
