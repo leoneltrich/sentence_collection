@@ -143,12 +143,18 @@
 
         .form-check-input {
             background-color: var(--brand-bg);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
         }
 
         .form-check-input:checked {
-            background-color: var(--brand-white);
+            background-color: var(--brand-bg);
+            border-color: var(--brand-white);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%234F4DB1' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+        }
+
+        .form-check-input:focus {
+            box-shadow: none;
             border-color: var(--brand-white);
         }
     </style>
