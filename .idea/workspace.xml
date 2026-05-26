@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added category updater and fixed form bug in survey">
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="fixed category list scrolling issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,23 +38,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.010573547189876" />
-      <entry key="MS500" value="1.6013887238832116" />
-      <entry key="S2" value="4.369954141426194" />
-      <entry key="S5" value="7.995442678286188" />
-      <entry key="S10" value="10.633746393145916" />
-      <entry key="S30" value="13.285391425264846" />
-      <entry key="S60" value="14.473621899022511" />
-      <entry key="M2" value="17.30671224482488" />
-      <entry key="M5" value="26.037049757666754" />
-      <entry key="M10" value="39.26856115648414" />
-      <entry key="M15" value="49.29610375985226" />
-      <entry key="M30" value="65.8603581826571" />
-      <entry key="H1" value="78.05834198188595" />
-      <entry key="H2" value="86.16204325637918" />
-      <entry key="H4" value="97.13662167295445" />
-      <entry key="D1" value="298.45057987469244" />
-      <entry key="W1" value="486.5429533808969" />
+      <entry key="MS100" value="1.0112818548593046" />
+      <entry key="MS500" value="1.4860475517023073" />
+      <entry key="S2" value="3.3049209903193693" />
+      <entry key="S5" value="5.5212149145211615" />
+      <entry key="S10" value="6.93997100507962" />
+      <entry key="S30" value="8.22441582845726" />
+      <entry key="S60" value="8.599752995567222" />
+      <entry key="M2" value="8.796658545536598" />
+      <entry key="M5" value="8.989907544214123" />
+      <entry key="M10" value="11.024291489866318" />
+      <entry key="M15" value="15.892904129110603" />
+      <entry key="M30" value="33.66272516812026" />
+      <entry key="H1" value="56.773423329142595" />
+      <entry key="H2" value="76.40756153712002" />
+      <entry key="H4" value="94.91751295872655" />
+      <entry key="D1" value="301.40843856547974" />
+      <entry key="W1" value="494.12346215553714" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -76,23 +76,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9897050372368319" />
-      <entry key="MS500" value="1.5941649318498077" />
-      <entry key="S2" value="4.364568231158752" />
-      <entry key="S5" value="7.991240477298978" />
-      <entry key="S10" value="10.630877546136443" />
-      <entry key="S30" value="13.284174420332365" />
-      <entry key="S60" value="14.47294710276676" />
-      <entry key="M2" value="17.306278636852085" />
-      <entry key="M5" value="26.03671323612565" />
-      <entry key="M10" value="39.268208087753806" />
-      <entry key="M15" value="49.29576266684392" />
-      <entry key="M30" value="65.8600958144815" />
-      <entry key="H1" value="78.05817604124063" />
-      <entry key="H2" value="86.16194895127761" />
-      <entry key="H4" value="97.13656408638965" />
-      <entry key="D1" value="298.4505269003231" />
-      <entry key="W1" value="486.5429401772653" />
+      <entry key="MS100" value="0.9903936573662196" />
+      <entry key="MS500" value="1.4793009050956765" />
+      <entry key="S2" value="3.3005044102850976" />
+      <entry key="S5" value="5.517909754446142" />
+      <entry key="S10" value="6.937809157073178" />
+      <entry key="S30" value="8.223539793688674" />
+      <entry key="S60" value="8.599292163630139" />
+      <entry key="M2" value="8.796422137383693" />
+      <entry key="M5" value="8.989810573391754" />
+      <entry key="M10" value="11.024224649525973" />
+      <entry key="M15" value="15.892824009838993" />
+      <entry key="M30" value="33.66261071881923" />
+      <entry key="H1" value="56.77331367545501" />
+      <entry key="H2" value="76.40748371358227" />
+      <entry key="H4" value="94.91746000104568" />
+      <entry key="D1" value="301.4083863265928" />
+      <entry key="W1" value="494.12344894229113" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -263,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779819175082</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fixed category list scrolling issue">
+      <option name="closed" value="true" />
+      <created>1779825097615</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1779825097615</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +292,7 @@
     <MESSAGE value="added landing page" />
     <MESSAGE value="removed give away notes and form" />
     <MESSAGE value="added category updater and fixed form bug in survey" />
-    <option name="LAST_COMMIT_MESSAGE" value="added category updater and fixed form bug in survey" />
+    <MESSAGE value="fixed category list scrolling issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed category list scrolling issue" />
   </component>
 </project>
