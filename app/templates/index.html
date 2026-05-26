@@ -32,13 +32,14 @@
         p, label, span, .btn { font-weight: 600; }
 
         .dashboard-wrapper {
-            flex: 1;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             padding: 1.5rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .page-header {
@@ -56,7 +57,8 @@
             flex: 1;
             display: flex;
             gap: 2rem;
-            overflow: hidden; /* Inner content scrolls */
+            overflow: hidden; /* Important for flex children scrolling */
+            min-height: 0;
         }
 
         .sidebar {
@@ -64,6 +66,7 @@
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            min-height: 0;
         }
 
         .main-content {
@@ -71,7 +74,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            overflow: hidden;
+            min-height: 0;
         }
 
         .admin-card {
@@ -79,10 +82,14 @@
             color: var(--brand-white);
             border: none;
             border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(79, 77, 177, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-height: 0;
+        }
+
+        .sidebar .admin-card, .main-content .admin-card {
+            flex: 1;
         }
 
         .card-body { 
@@ -90,6 +97,8 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            flex: 1;
+            min-height: 0;
         }
 
         .card-header-section {
@@ -282,7 +291,7 @@
         <div class="main-layout">
             <!-- Sidebar: Overview -->
             <aside class="sidebar">
-                <div class="card admin-card h-100">
+                <div class="card admin-card">
                     <div class="card-body">
                         <div class="card-header-section">
                             <h5 class="card-title">Workspace Overview</h5>
