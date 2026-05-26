@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added landing page">
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="removed give away notes and form">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,23 +41,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.002640516861386" />
-      <entry key="MS500" value="2.228581376122169" />
-      <entry key="S2" value="7.964599261588805" />
-      <entry key="S5" value="13.290241086791942" />
-      <entry key="S10" value="20.879531388572104" />
-      <entry key="S30" value="35.42960993401151" />
-      <entry key="S60" value="41.81864477894612" />
-      <entry key="M2" value="45.655073067621586" />
-      <entry key="M5" value="48.19666157370948" />
-      <entry key="M10" value="49.08705169500519" />
-      <entry key="M15" value="49.38883202060063" />
-      <entry key="M30" value="49.69317444455908" />
-      <entry key="H1" value="49.87258207978617" />
-      <entry key="H2" value="50.72068601677238" />
-      <entry key="H4" value="58.094493709534206" />
-      <entry key="D1" value="257.78344471265024" />
-      <entry key="W1" value="443.35293898793446" />
+      <entry key="MS100" value="1.4327030194101096" />
+      <entry key="MS500" value="3.453581155774602" />
+      <entry key="S2" value="7.023903514506216" />
+      <entry key="S5" value="11.47876958067894" />
+      <entry key="S10" value="14.758055985392899" />
+      <entry key="S30" value="17.96605869180265" />
+      <entry key="S60" value="18.94606958476464" />
+      <entry key="M2" value="19.696007664957285" />
+      <entry key="M5" value="24.60753853590727" />
+      <entry key="M10" value="36.07303742818376" />
+      <entry key="M15" value="44.63537373873271" />
+      <entry key="M30" value="58.0053530542546" />
+      <entry key="H1" value="67.33813277106216" />
+      <entry key="H2" value="73.53625941507092" />
+      <entry key="H4" value="83.49494844909414" />
+      <entry key="D1" value="284.2248976412718" />
+      <entry key="W1" value="471.7266962316824" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -77,23 +79,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9752223857516591" />
-      <entry key="MS500" value="2.214684027884752" />
-      <entry key="S2" value="7.949973790825732" />
-      <entry key="S5" value="13.278465339759771" />
-      <entry key="S10" value="20.86581740962264" />
-      <entry key="S30" value="35.4184193530416" />
-      <entry key="S60" value="41.81142738935661" />
-      <entry key="M2" value="45.650960549289" />
-      <entry key="M5" value="48.19488065129726" />
-      <entry key="M10" value="49.08613721584553" />
-      <entry key="M15" value="49.38821692494116" />
-      <entry key="M30" value="49.69286414836335" />
-      <entry key="H1" value="49.87242620410411" />
-      <entry key="H2" value="50.72060721051916" />
-      <entry key="H4" value="58.094446261899385" />
-      <entry key="D1" value="257.78339340933076" />
-      <entry key="W1" value="443.3529260922951" />
+      <entry key="MS100" value="1.4068644129633785" />
+      <entry key="MS500" value="3.4347176934862156" />
+      <entry key="S2" value="7.011714652943567" />
+      <entry key="S5" value="11.469768617653763" />
+      <entry key="S10" value="14.75203068780711" />
+      <entry key="S30" value="17.963553971122604" />
+      <entry key="S60" value="18.944741294669512" />
+      <entry key="M2" value="19.695307024259844" />
+      <entry key="M5" value="24.60710061310594" />
+      <entry key="M10" value="36.0726165896012" />
+      <entry key="M15" value="44.63499038795305" />
+      <entry key="M30" value="58.00508028785096" />
+      <entry key="H1" value="67.33796793169266" />
+      <entry key="H2" value="73.5361679393064" />
+      <entry key="H4" value="83.49489284790675" />
+      <entry key="D1" value="284.2248450049556" />
+      <entry key="W1" value="471.72668309169933" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -105,27 +107,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -144,7 +152,7 @@
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
       <workItem from="1779719070616" duration="13732000" />
-      <workItem from="1779817548013" duration="596000" />
+      <workItem from="1779817548013" duration="1544000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -242,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779778828162</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="removed give away notes and form">
+      <option name="closed" value="true" />
+      <created>1779818177032</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1779818177032</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,6 +277,7 @@
     <MESSAGE value="added download option for quiz results" />
     <MESSAGE value="added quiz.html" />
     <MESSAGE value="added landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added landing page" />
+    <MESSAGE value="removed give away notes and form" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed give away notes and form" />
   </component>
 </project>

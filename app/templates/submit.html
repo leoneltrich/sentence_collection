@@ -196,21 +196,7 @@
                         <label for="sentence-text" class="form-label">Input Your Sentence</label>
                         <textarea class="form-control" id="sentence-text" rows="3" required placeholder="How do I list all files in a directory?"></textarea>
                     </div>
-<!--
-                    <div class="giveaway-section">
-                        <div class="form-check d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" id="giveaway-opt-in">
-                            <label class="form-check-label text-white ms-2" for="giveaway-opt-in">
-                                Opt into <strong>€15 Amazon Gift Card</strong> Giveaway!
-                            </label>
-                        </div>
-                        
-                        <div id="email-group">
-                            <label for="email-input" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email-input" placeholder="your@email.com">
-                        </div>
-                    </div>
--->
+
                     <button type="submit" class="btn btn-submit w-100" id="submit-btn">
                         <span id="btn-text">Transmit Sentence</span>
                     </button>
@@ -257,19 +243,6 @@
             document.getElementById('selected-category-desc').textContent = selectedOpt.dataset.description || '';
         });
 
-        document.getElementById('giveaway-opt-in').addEventListener('change', function() {
-            const emailGroup = document.getElementById('email-group');
-            const emailInput = document.getElementById('email-input');
-            if (this.checked) {
-                emailGroup.style.display = 'block';
-                emailInput.setAttribute('required', 'required');
-            } else {
-                emailGroup.style.display = 'none';
-                emailInput.removeAttribute('required');
-                emailInput.value = '';
-            }
-        });
-
         document.getElementById('submission-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const feedback = document.getElementById('feedback');
@@ -281,9 +254,6 @@
                 category_id: parseInt(document.getElementById('category-select').value),
                 source: 'survey'
             };
-
-            const email = document.getElementById('email-input').value;
-            if (email) payload.email = email;
 
             try {
                 btn.disabled = true;
@@ -300,7 +270,6 @@
                     // Success State
                     btnText.innerHTML = checkmarkSvg;
                     document.getElementById('submission-form').reset();
-                    document.getElementById('email-group').style.display = 'none';
                     document.getElementById('selected-category-desc').textContent = '';
                 } else {
                     // Error Notice under button

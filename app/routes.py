@@ -170,6 +170,55 @@ def add_category():
         db.session.rollback()
         return jsonify({'error': 'Category already exists'}), 409
 
+@api.route('/categories/<int:category_id>', methods=['PUT'])
+@limiter.limit("10 per minute")
+def update_category(category_id):
+    """
+    Update an existing category
+    ---
+    parameters:
+      - name: category_id
+        in: path
+        type: integer
+        required: true
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+    responses:
+      200:
+        description: Category updated
+      400:
+        description: Invalid input
+      404:
+        description: Category not found
+      409:
+        description: Category name already exists
+    """
+    category = Category.query.get_or_404(category_id)
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+    
+    if 'name' in data:
+        category.name = data['name']
+    if 'description' in data:
+        category.description = data.get('description', '')
+        
+    try:
+        db.session.commit()
+        return jsonify({'message': 'Category updated successfully'}), 200
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({'error': 'Category name already exists'}), 409
+
 @api.route('/sentences', methods=['POST'])
 @limiter.limit("20 per minute")
 def add_sentence():
