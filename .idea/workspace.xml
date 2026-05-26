@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="Added quiz page">
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added quiz.html">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/quiz.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/quiz.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,23 +39,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0002430569270377" />
-      <entry key="MS500" value="1.355437579480355" />
-      <entry key="S2" value="2.7135310455736894" />
-      <entry key="S5" value="3.3980615555176104" />
-      <entry key="S10" value="3.992473237986544" />
-      <entry key="S30" value="8.662580316511825" />
-      <entry key="S60" value="13.60514358112313" />
-      <entry key="M2" value="18.65422319606574" />
-      <entry key="M5" value="24.963064188140287" />
-      <entry key="M10" value="30.461180153998086" />
-      <entry key="M15" value="37.68514387508947" />
-      <entry key="M30" value="70.36546735130166" />
-      <entry key="H1" value="136.02648971447834" />
-      <entry key="H2" value="215.88079830514297" />
-      <entry key="H4" value="283.35900245123605" />
-      <entry key="D1" value="364.1579212391452" />
-      <entry key="W1" value="381.0771462918796" />
+      <entry key="MS100" value="1.0083153920504169" />
+      <entry key="MS500" value="1.383711317200282" />
+      <entry key="S2" value="1.9035717130700944" />
+      <entry key="S5" value="2.5491915683391726" />
+      <entry key="S10" value="3.0847939035617493" />
+      <entry key="S30" value="3.63834911518767" />
+      <entry key="S60" value="3.835185280152549" />
+      <entry key="M2" value="4.415994066929595" />
+      <entry key="M5" value="7.599225576977675" />
+      <entry key="M10" value="11.092797562599124" />
+      <entry key="M15" value="12.894773063021093" />
+      <entry key="M30" value="15.44248047900053" />
+      <entry key="H1" value="25.109969061235006" />
+      <entry key="H2" value="72.14684491662877" />
+      <entry key="H4" value="162.8640414144946" />
+      <entry key="D1" value="353.50498562378834" />
+      <entry key="W1" value="406.38099956206594" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -77,23 +77,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.979655486635744" />
-      <entry key="MS500" value="1.3493040613494016" />
-      <entry key="S2" value="2.7102576743371563" />
-      <entry key="S5" value="3.3963294190302262" />
-      <entry key="S10" value="3.9895379365657235" />
-      <entry key="S30" value="8.652528202422676" />
-      <entry key="S60" value="13.595151539945093" />
-      <entry key="M2" value="18.6463783708409" />
-      <entry key="M5" value="24.958250311451643" />
-      <entry key="M10" value="30.458066087312197" />
-      <entry key="M15" value="37.68269091010928" />
-      <entry key="M30" value="70.36381415938611" />
-      <entry key="H1" value="136.02540833181246" />
-      <entry key="H2" value="215.88013264091666" />
-      <entry key="H4" value="283.35862048802494" />
-      <entry key="D1" value="364.15784804807697" />
-      <entry key="W1" value="381.07713555371" />
+      <entry key="MS100" value="0.807504182412025" />
+      <entry key="MS500" value="1.3211338569911355" />
+      <entry key="S2" value="1.880804133406112" />
+      <entry key="S5" value="2.5363477026089596" />
+      <entry key="S10" value="3.07680555448645" />
+      <entry key="S30" value="3.6351448554633636" />
+      <entry key="S60" value="3.833461560002466" />
+      <entry key="M2" value="4.414731693957294" />
+      <entry key="M5" value="7.597759321453042" />
+      <entry key="M10" value="11.091537681609909" />
+      <entry key="M15" value="12.893752627366485" />
+      <entry key="M30" value="15.44185180884214" />
+      <entry key="H1" value="25.10956226638476" />
+      <entry key="H2" value="72.14650390285968" />
+      <entry key="H4" value="162.86376088102085" />
+      <entry key="D1" value="353.50490449652216" />
+      <entry key="W1" value="406.38098667939283" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -143,7 +143,7 @@
       <updated>1779109457562</updated>
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
-      <workItem from="1779719070616" duration="6965000" />
+      <workItem from="1779719070616" duration="10681000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -217,7 +217,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779725756937</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added download option for quiz results">
+      <option name="closed" value="true" />
+      <created>1779726574354</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1779726574354</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added quiz.html">
+      <option name="closed" value="true" />
+      <created>1779726584674</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1779726584674</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +249,8 @@
     <MESSAGE value="Added source types for sentences" />
     <MESSAGE value="fixed styles" />
     <MESSAGE value="Added quiz page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added quiz page" />
+    <MESSAGE value="added download option for quiz results" />
+    <MESSAGE value="added quiz.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="added quiz.html" />
   </component>
 </project>

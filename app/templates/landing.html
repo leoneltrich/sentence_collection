@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language CLI Study - Convention 2026</title>
+    <!-- Libre Baskerville Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #4F4DB1;
+            --brand-bg: #C9CEFF;
+            --brand-white: #FFFFFF;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--brand-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--brand-primary);
+        }
+
+        h1, strong { font-weight: 700; }
+        p, .btn, .semi-bold-text { font-weight: 600; }
+
+        .container-box {
+            background-color: var(--brand-primary);
+            color: var(--brand-white);
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            padding: 4rem 3rem;
+            box-shadow: 0 4px 20px rgba(79, 77, 177, 0.1);
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .action-link {
+            background-color: var(--brand-bg);
+            color: var(--brand-primary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, transform 0.2s;
+            height: 100%;
+            text-align: center;
+        }
+
+        .action-link:hover {
+            background-color: var(--brand-white);
+            color: var(--brand-primary);
+            transform: translateY(-2px);
+        }
+
+        .action-title {
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-subtitle {
+            font-size: 0.85rem;
+            font-style: italic;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .footer-text {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Removing standard button styles to maintain clean look */
+        .row { margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="container-box">
+        <h1 class="main-title">Are you a CLI Expert?</h1>
+        
+        <p class="description">
+            Participate in our study to help evaluate local-first command line assistance. 
+            Contribute to our dataset or test your technical proficiency.
+        </p>
+        
+        <div class="row g-4">
+            <div class="col-md-6">
+                <a href="/submit" class="action-link">
+                    <strong class="action-title">Sentence Collection</strong>
+                    <span class="action-subtitle">Contribute natural language queries</span>
+                    <span class="action-subtitle mt-2" style="font-weight: 600; opacity: 1;">Win €15 Gift Card</span>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/quiz" class="action-link">
+                    <strong class="action-title">Proficiency Quiz</strong>
+                    <span class="action-subtitle">Test your CLI knowledge</span>
+                    <span class="action-subtitle mt-2" style="font-weight: 600; opacity: 1;">Win €15 Gift Card</span>
+                </a>
+            </div>
+        </div>
+
+        <p class="footer-text">Proof of Concept Study • Technikforum 2026</p>
+    </div>
+</body>
+</html>
