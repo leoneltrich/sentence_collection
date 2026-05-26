@@ -125,6 +125,7 @@
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.85);
             margin-top: 6px;
+            font-weight: 400; /* Explicitly remove bold */
         }
 
         .notice-text {
@@ -215,6 +216,10 @@
                 const response = await fetch('/categories');
                 const categories = await response.json();
                 const select = document.getElementById('category-select');
+                
+                // Clear and add default option
+                select.innerHTML = '<option value="" selected disabled>Choose a category...</option>';
+                
                 categories.forEach(cat => {
                     const opt = document.createElement('option');
                     opt.value = cat.id;

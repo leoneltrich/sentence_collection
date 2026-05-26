@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="removed give away notes and form">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="added category updater and fixed form bug in survey">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/submit.html" afterDir="false" />
     </list>
@@ -41,23 +39,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.4327030194101096" />
-      <entry key="MS500" value="3.453581155774602" />
-      <entry key="S2" value="7.023903514506216" />
-      <entry key="S5" value="11.47876958067894" />
-      <entry key="S10" value="14.758055985392899" />
-      <entry key="S30" value="17.96605869180265" />
-      <entry key="S60" value="18.94606958476464" />
-      <entry key="M2" value="19.696007664957285" />
-      <entry key="M5" value="24.60753853590727" />
-      <entry key="M10" value="36.07303742818376" />
-      <entry key="M15" value="44.63537373873271" />
-      <entry key="M30" value="58.0053530542546" />
-      <entry key="H1" value="67.33813277106216" />
-      <entry key="H2" value="73.53625941507092" />
-      <entry key="H4" value="83.49494844909414" />
-      <entry key="D1" value="284.2248976412718" />
-      <entry key="W1" value="471.7266962316824" />
+      <entry key="MS100" value="1.010573547189876" />
+      <entry key="MS500" value="1.6013887238832116" />
+      <entry key="S2" value="4.369954141426194" />
+      <entry key="S5" value="7.995442678286188" />
+      <entry key="S10" value="10.633746393145916" />
+      <entry key="S30" value="13.285391425264846" />
+      <entry key="S60" value="14.473621899022511" />
+      <entry key="M2" value="17.30671224482488" />
+      <entry key="M5" value="26.037049757666754" />
+      <entry key="M10" value="39.26856115648414" />
+      <entry key="M15" value="49.29610375985226" />
+      <entry key="M30" value="65.8603581826571" />
+      <entry key="H1" value="78.05834198188595" />
+      <entry key="H2" value="86.16204325637918" />
+      <entry key="H4" value="97.13662167295445" />
+      <entry key="D1" value="298.45057987469244" />
+      <entry key="W1" value="486.5429533808969" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -79,23 +77,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4068644129633785" />
-      <entry key="MS500" value="3.4347176934862156" />
-      <entry key="S2" value="7.011714652943567" />
-      <entry key="S5" value="11.469768617653763" />
-      <entry key="S10" value="14.75203068780711" />
-      <entry key="S30" value="17.963553971122604" />
-      <entry key="S60" value="18.944741294669512" />
-      <entry key="M2" value="19.695307024259844" />
-      <entry key="M5" value="24.60710061310594" />
-      <entry key="M10" value="36.0726165896012" />
-      <entry key="M15" value="44.63499038795305" />
-      <entry key="M30" value="58.00508028785096" />
-      <entry key="H1" value="67.33796793169266" />
-      <entry key="H2" value="73.5361679393064" />
-      <entry key="H4" value="83.49489284790675" />
-      <entry key="D1" value="284.2248450049556" />
-      <entry key="W1" value="471.72668309169933" />
+      <entry key="MS100" value="0.9897050372368319" />
+      <entry key="MS500" value="1.5941649318498077" />
+      <entry key="S2" value="4.364568231158752" />
+      <entry key="S5" value="7.991240477298978" />
+      <entry key="S10" value="10.630877546136443" />
+      <entry key="S30" value="13.284174420332365" />
+      <entry key="S60" value="14.47294710276676" />
+      <entry key="M2" value="17.306278636852085" />
+      <entry key="M5" value="26.03671323612565" />
+      <entry key="M10" value="39.268208087753806" />
+      <entry key="M15" value="49.29576266684392" />
+      <entry key="M30" value="65.8600958144815" />
+      <entry key="H1" value="78.05817604124063" />
+      <entry key="H2" value="86.16194895127761" />
+      <entry key="H4" value="97.13656408638965" />
+      <entry key="D1" value="298.4505269003231" />
+      <entry key="W1" value="486.5429401772653" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -152,7 +150,7 @@
       <workItem from="1779109458556" duration="10873000" />
       <workItem from="1779148758423" duration="3056000" />
       <workItem from="1779719070616" duration="13732000" />
-      <workItem from="1779817548013" duration="1544000" />
+      <workItem from="1779817548013" duration="3346000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -258,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779818177032</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="added category updater and fixed form bug in survey">
+      <option name="closed" value="true" />
+      <created>1779819175082</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1779819175082</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +284,7 @@
     <MESSAGE value="added quiz.html" />
     <MESSAGE value="added landing page" />
     <MESSAGE value="removed give away notes and form" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed give away notes and form" />
+    <MESSAGE value="added category updater and fixed form bug in survey" />
+    <option name="LAST_COMMIT_MESSAGE" value="added category updater and fixed form bug in survey" />
   </component>
 </project>

@@ -3,131 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentence Collection</title>
+    <title>Admin Dashboard - Convention 2026</title>
+    <!-- Libre Baskerville Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; }
-        .stats-card { border-left: 5px solid #0d6efd; }
-        .category-desc { font-style: italic; color: #6c757d; font-size: 0.9rem; }
+        :root {
+            --brand-primary: #4F4DB1;
+            --brand-bg: #C9CEFF;
+            --brand-white: #FFFFFF;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--brand-bg);
+            color: var(--brand-primary);
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent page scroll */
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6, strong { font-weight: 700; }
+        p, label, span, .btn { font-weight: 600; }
+
+        .dashboard-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-header {
+            margin-bottom: 1rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .main-title {
+            font-size: 2rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .main-layout {
+            flex: 1;
+            display: flex;
+            gap: 2rem;
+            overflow: hidden; /* Inner content scrolls */
+        }
+
+        .sidebar {
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow: hidden;
+        }
+
+        .admin-card {
+            background-color: var(--brand-primary);
+            color: var(--brand-white);
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(79, 77, 177, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card-body { 
+            padding: 1.5rem !important; 
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card-header-section {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            color: var(--brand-white);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .download-btn-group {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .download-btn {
+            flex: 1;
+            background: rgba(201, 206, 255, 0.15);
+            color: var(--brand-bg);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.2s;
+            border: 1px solid rgba(201, 206, 255, 0.2);
+        }
+
+        .download-btn:hover {
+            background: var(--brand-bg);
+            color: var(--brand-primary);
+        }
+
+        .form-label {
+            color: var(--brand-white);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .form-control, .form-select {
+            background-color: var(--brand-bg);
+            border: 2px solid transparent;
+            color: var(--brand-primary);
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: var(--brand-bg);
+            border-color: var(--brand-white);
+            color: var(--brand-primary);
+            box-shadow: none;
+        }
+
+        .btn-brand {
+            background-color: var(--brand-bg) !important;
+            color: var(--brand-primary) !important;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .btn-brand:hover:not(:disabled) {
+            background-color: var(--brand-white) !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-brand {
+            background-color: transparent !important;
+            color: var(--brand-bg) !important;
+            border: 2px solid var(--brand-bg) !important;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-outline-brand:hover {
+            background-color: var(--brand-bg) !important;
+            color: var(--brand-primary) !important;
+        }
+
+        .stats-summary {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.08);
+            padding: 1rem;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: var(--brand-bg);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .category-scroll-area::-webkit-scrollbar { width: 4px; }
+        .category-scroll-area::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .category-scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+        .category-card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .category-main { flex-grow: 1; min-width: 0; }
+        .category-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.1rem; }
+        .category-meta { font-size: 0.8rem; opacity: 0.7; font-style: italic; font-weight: 400; }
+
+        .category-ops { display: flex; gap: 0.5rem; }
+        .op-btn {
+            color: var(--brand-bg);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            background: rgba(201, 206, 255, 0.1);
+            transition: all 0.2s;
+        }
+        .op-btn:hover { background: var(--brand-bg); color: var(--brand-primary); }
+
+        .selection-desc {
+            font-style: italic;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+            min-height: 1.2rem;
+        }
+
+        .feedback-message {
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            min-height: 2.2rem;
+        }
+
+        .alert-brand-custom {
+            background: var(--brand-bg);
+            color: var(--brand-primary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <h1 class="mb-4 text-center">Sentence Collection</h1>
+    <div class="dashboard-wrapper">
+        <header class="page-header">
+            <h1 class="main-title">Control Center</h1>
+            <p class="semi-bold-text opacity-75 small">Scientific Study Management Dashboard</p>
+        </header>
 
-        <div class="row g-4">
-            <!-- Stats Section -->
-            <div class="col-md-4">
-                <div class="card stats-card shadow-sm mb-4">
+        <div class="main-layout">
+            <!-- Sidebar: Overview -->
+            <aside class="sidebar">
+                <div class="card admin-card h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-primary">Global Stats</h5>
-                        <p class="h3 mb-2" id="total-sentences">0</p>
-                        <small class="text-muted d-block mb-3">Total Sentences</small>
-                        <div class="d-grid gap-2">
-                            <a href="/download/all" class="btn btn-sm btn-outline-primary">Download Sentences (.csv)</a>
-                            <a href="/download/quiz" class="btn btn-sm btn-outline-success">Download Quiz Results (.csv)</a>
+                        <div class="card-header-section">
+                            <h5 class="card-title">Workspace Overview</h5>
+                            <div class="download-btn-group">
+                                <a href="/download/all" class="download-btn">Sentences CSV</a>
+                                <a href="/download/quiz" class="download-btn">Quiz Data CSV</a>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-summary">
+                            <div class="stat-card">
+                                <div class="stat-value" id="total-sentences">0</div>
+                                <div class="stat-label">Submissions</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="category-count-badge">0</div>
+                                <div class="stat-label">Domains</div>
+                            </div>
+                        </div>
+
+                        <h6 class="small text-uppercase opacity-50 mb-3" style="letter-spacing: 2px; font-size: 0.7rem;">Active Domains</h6>
+                        <div class="category-scroll-area" id="category-stats-list">
+                            <!-- Categories populated via JS -->
                         </div>
                     </div>
                 </div>
+            </aside>
 
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white">
-                        <h5 class="card-title mb-0">Stats by Category</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush" id="category-stats-list">
-                            <!-- Populated by JS -->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Forms Section -->
-            <div class="col-md-8">
-                <!-- Add Sentence Form -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Add New Sentence</h5>
-                    </div>
+            <!-- Main Content: Forms -->
+            <main class="main-content">
+                <!-- Manual Sentence Injection (Top) -->
+                <div class="card admin-card">
                     <div class="card-body">
+                        <div class="card-header-section">
+                            <h5 class="card-title">Manual Sentence Injection</h5>
+                        </div>
                         <form id="sentence-form">
                             <div class="mb-3">
-                                <label for="sentence-text" class="form-label">Sentence</label>
-                                <textarea class="form-control" id="sentence-text" rows="2" required placeholder="Type your sentence here..."></textarea>
+                                <label for="sentence-text" class="form-label">Sentence Content</label>
+                                <textarea class="form-control" id="sentence-text" rows="2" required placeholder="Type the sentence for validation..."></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label for="category-select" class="form-label">Category</label>
-                                <select class="form-select" id="category-select" required>
-                                    <option value="" selected disabled>Select a category...</option>
-                                    <!-- Populated by JS -->
-                                </select>
-                                <div id="selected-category-desc" class="category-desc mt-1"></div>
+                            <div class="row align-items-end g-3">
+                                <div class="col-md-7">
+                                    <label for="category-select" class="form-label">Target Domain</label>
+                                    <select class="form-select" id="category-select" required>
+                                        <option value="" selected disabled>Select destination...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="submit" class="btn btn-brand w-100">Commit Sentence</button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Submit Sentence</button>
+                            <div id="selected-category-desc" class="selection-desc"></div>
+                            <div id="sentence-feedback" class="feedback-message"></div>
                         </form>
-                        <div id="sentence-feedback" class="mt-3"></div>
                     </div>
                 </div>
 
-                <!-- Add Category Form -->
-                <div class="card shadow-sm">
-                    <div class="card-header bg-secondary text-white">
-                        <h5 class="card-title mb-0" id="category-form-title">Create New Category</h5>
-                    </div>
+                <!-- Domain Management (Bottom) -->
+                <div class="card admin-card">
                     <div class="card-body">
+                        <div class="card-header-section">
+                            <h5 class="card-title" id="category-form-title">Define New Domain</h5>
+                        </div>
                         <form id="category-form">
                             <input type="hidden" id="cat-id">
-                            <div class="mb-3">
-                                <label for="cat-name" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" id="cat-name" required placeholder="e.g., Famous Quotes">
+                            <div class="row g-4">
+                                <div class="col-md-5">
+                                    <label for="cat-name" class="form-label">Domain Name</label>
+                                    <input type="text" class="form-control" id="cat-name" required placeholder="e.g., Git Workflow">
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="cat-desc" class="form-label">Contextual Description</label>
+                                    <input type="text" class="form-control" id="cat-desc" placeholder="Scope details for participants">
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="cat-desc" class="form-label">Short Description</label>
-                                <input type="text" class="form-control" id="cat-desc" placeholder="Briefly describe this category">
+                            <div class="d-flex gap-3 mt-4">
+                                <button type="submit" class="btn btn-brand flex-grow-1" id="category-submit-btn">Register Domain</button>
+                                <button type="button" class="btn btn-outline-brand d-none" id="category-cancel-btn">Abort Edit</button>
                             </div>
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-secondary flex-grow-1" id="category-submit-btn">Create Category</button>
-                                <button type="button" class="btn btn-outline-secondary d-none" id="category-cancel-btn">Cancel</button>
-                            </div>
+                            <div id="category-feedback" class="feedback-message"></div>
                         </form>
-                        <div id="category-feedback" class="mt-3"></div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
 
     <script>
+        // Data Fetching & UI Updates
         async function updateStats() {
             try {
                 const response = await fetch('/stats');
                 const data = await response.json();
                 
                 document.getElementById('total-sentences').textContent = data.total_sentences;
+                document.getElementById('category-count-badge').textContent = data.category_stats.length;
                 
                 const statsList = document.getElementById('category-stats-list');
                 statsList.innerHTML = '';
+                
                 data.category_stats.forEach(stat => {
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                    li.innerHTML = `
-                        <div class="flex-grow-1">
-                            ${stat.category_name} 
-                            <span class="badge bg-primary rounded-pill ms-1">${stat.count}</span>
+                    const div = document.createElement('div');
+                    div.className = 'category-card';
+                    div.innerHTML = `
+                        <div class="category-main">
+                            <div class="category-title">${stat.category_name}</div>
+                            <div class="category-meta">${stat.count} submissions</div>
                         </div>
-                        <div class="btn-group">
-                            <button class="btn btn-outline-secondary btn-sm edit-cat-btn" 
-                                    data-id="${stat.category_id}" 
-                                    data-name="${stat.category_name}">✏️ Edit</button>
-                            <a href="/download/category/${stat.category_id}" class="btn btn-outline-primary btn-sm">⬇️ Download</a>
+                        <div class="category-ops">
+                            <a href="#" class="op-btn edit-cat-btn" data-id="${stat.category_id}">Edit</a>
+                            <a href="/download/category/${stat.category_id}" class="op-btn">CSV</a>
                         </div>
                     `;
-                    statsList.appendChild(li);
+                    statsList.appendChild(div);
                 });
 
-                // Attach edit listeners
+                // Attach dynamically created edit listeners
                 document.querySelectorAll('.edit-cat-btn').forEach(btn => {
-                    btn.addEventListener('click', async () => {
+                    btn.addEventListener('click', async (e) => {
+                        e.preventDefault();
                         const id = btn.dataset.id;
                         const categoriesResponse = await fetch('/categories');
                         const categories = await categoriesResponse.json();
@@ -137,29 +413,26 @@
                             document.getElementById('cat-id').value = cat.id;
                             document.getElementById('cat-name').value = cat.name;
                             document.getElementById('cat-desc').value = cat.description || '';
-                            document.getElementById('category-form-title').textContent = 'Update Category';
-                            document.getElementById('category-submit-btn').textContent = 'Update Category';
+                            document.getElementById('category-form-title').textContent = 'Modify Domain Configuration';
+                            document.getElementById('category-submit-btn').textContent = 'Confirm Changes';
                             document.getElementById('category-cancel-btn').classList.remove('d-none');
                             document.getElementById('cat-name').focus();
                         }
                     });
                 });
-
             } catch (err) {
-                console.error('Error fetching stats:', err);
+                console.error('State sync error:', err);
             }
         }
 
-        document.getElementById('category-cancel-btn').addEventListener('click', () => {
-            resetCategoryForm();
-        });
+        document.getElementById('category-cancel-btn').addEventListener('click', () => resetCategoryForm());
 
         function resetCategoryForm() {
             document.getElementById('cat-id').value = '';
             document.getElementById('cat-name').value = '';
             document.getElementById('cat-desc').value = '';
-            document.getElementById('category-form-title').textContent = 'Create New Category';
-            document.getElementById('category-submit-btn').textContent = 'Create Category';
+            document.getElementById('category-form-title').textContent = 'Define New Domain';
+            document.getElementById('category-submit-btn').textContent = 'Register Domain';
             document.getElementById('category-cancel-btn').classList.add('d-none');
             document.getElementById('category-feedback').innerHTML = '';
         }
@@ -168,11 +441,10 @@
             try {
                 const response = await fetch('/categories');
                 const categories = await response.json();
-                
                 const select = document.getElementById('category-select');
                 const currentVal = select.value;
                 
-                select.innerHTML = '<option value="" disabled>Select a category...</option>';
+                select.innerHTML = '<option value="" selected disabled>Select destination...</option>';
                 categories.forEach(cat => {
                     const opt = document.createElement('option');
                     opt.value = cat.id;
@@ -183,7 +455,7 @@
                 
                 if (currentVal) select.value = currentVal;
             } catch (err) {
-                console.error('Error loading categories:', err);
+                console.error('Category load failure:', err);
             }
         }
 
@@ -192,10 +464,11 @@
             document.getElementById('selected-category-desc').textContent = selectedOpt.dataset.description || '';
         });
 
+        // Form Submission Logic
         document.getElementById('sentence-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const feedback = document.getElementById('sentence-feedback');
-            const btn = e.target.querySelector('button');
+            const btn = e.target.querySelector('button[type="submit"]');
             
             const payload = {
                 text: document.getElementById('sentence-text').value,
@@ -213,16 +486,17 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    feedback.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                    feedback.innerHTML = `<div class="alert-brand-custom">Operation successful. Sentence injected into database.</div>`;
                     document.getElementById('sentence-text').value = '';
                     updateStats();
                 } else {
-                    feedback.innerHTML = `<div class="alert alert-warning">${result.error}</div>`;
+                    feedback.innerHTML = `<div class="alert-brand-custom" style="background: #ef4444; color: white;">${result.error}</div>`;
                 }
             } catch (err) {
-                feedback.innerHTML = `<div class="alert alert-danger">Error submitting sentence.</div>`;
+                feedback.innerHTML = `<div class="alert-brand-custom" style="background: #ef4444; color: white;">Transmission error. System unreachable.</div>`;
             } finally {
                 btn.disabled = false;
+                setTimeout(() => { feedback.innerHTML = ''; }, 4000);
             }
         });
 
@@ -250,7 +524,7 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    feedback.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                    feedback.innerHTML = `<div class="alert-brand-custom">${catId ? 'Update successful.' : 'Registration successful.'}</div>`;
                     if (!catId) {
                         document.getElementById('cat-name').value = '';
                         document.getElementById('cat-desc').value = '';
@@ -260,20 +534,20 @@
                     loadCategories();
                     updateStats();
                 } else {
-                    feedback.innerHTML = `<div class="alert alert-warning">${result.error}</div>`;
+                    feedback.innerHTML = `<div class="alert-brand-custom" style="background: #ef4444; color: white;">${result.error}</div>`;
                 }
             } catch (err) {
-                feedback.innerHTML = `<div class="alert alert-danger">Error processing category.</div>`;
+                feedback.innerHTML = `<div class="alert-brand-custom" style="background: #ef4444; color: white;">Critical process error.</div>`;
             } finally {
                 btn.disabled = false;
+                setTimeout(() => { feedback.innerHTML = ''; }, 4000);
             }
         });
 
-        // Initial Load
+        // Initialize
         loadCategories();
         updateStats();
-        // Polling stats every 5 seconds
-        setInterval(updateStats, 5000);
+        setInterval(updateStats, 15000);
     </script>
 </body>
 </html>
