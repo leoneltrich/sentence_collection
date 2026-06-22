@@ -152,6 +152,7 @@
                     </div>
                     <button id="start-quiz-btn" class="btn btn-submit w-100">Start Quiz</button>
                     <div id="email-feedback" class="notice-text"></div>
+                    <p class="notice-text mt-3" style="font-size: 0.75rem; opacity: 0.85;">* Note: We use local storage (cookies) to save your progress in case of a page reload.</p>
                 </div>
 
                 <!-- Progress -->
@@ -230,10 +231,26 @@
 
                 const result = await response.json();
                 if (response.ok) {
-                    userEmail = emailInput;
+                    userEmail = emailInput.toLowerCase();
+                    localStorage.setItem('active_quiz_email', userEmail);
                     document.getElementById('email-screen').classList.add('hidden');
                     document.getElementById('quiz-progress').classList.remove('hidden');
                     document.getElementById('question-screen').classList.remove('hidden');
+                    
+                    const savedSession = localStorage.getItem('quiz_session_' + userEmail);
+                    if (savedSession) {
+                        try {
+                            const state = JSON.parse(savedSession);
+                            shuffledQuiz = state.shuffledQuiz;
+                            currentQuestionIndex = state.currentQuestionIndex;
+                            score = state.score;
+                            showQuestion();
+                            return;
+                        } catch (e) {
+                            console.error("Failed to parse saved session, starting fresh", e);
+                        }
+                    }
+                    
                     startQuiz();
                 } else {
                     feedback.textContent = result.error || "Validation failed. Please try again.";
@@ -247,8 +264,20 @@
             }
         });
 
+        function saveState() {
+            localStorage.setItem('quiz_session_' + userEmail, JSON.stringify({
+                shuffledQuiz: shuffledQuiz,
+                currentQuestionIndex: currentQuestionIndex,
+                score: score
+            }));
+            localStorage.setItem('active_quiz_email', userEmail);
+        }
+
         function startQuiz() {
             shuffledQuiz = shuffle([...quizData]);
+            currentQuestionIndex = 0;
+            score = 0;
+            saveState();
             showQuestion();
         }
 
@@ -279,8 +308,11 @@
 
             currentQuestionIndex++;
             if (currentQuestionIndex < shuffledQuiz.length) {
+                saveState();
                 showQuestion();
             } else {
+                localStorage.removeItem('quiz_session_' + userEmail);
+                localStorage.removeItem('active_quiz_email');
                 showResults();
             }
         }
@@ -328,6 +360,34 @@
                 feedback.textContent = "Error connecting to server.";
             }
         }
+
+        function checkAndRestoreSession() {
+            const activeEmail = localStorage.getItem('active_quiz_email');
+            if (activeEmail) {
+                const savedSession = localStorage.getItem('quiz_session_' + activeEmail);
+                if (savedSession) {
+                    try {
+                        const state = JSON.parse(savedSession);
+                        userEmail = activeEmail;
+                        shuffledQuiz = state.shuffledQuiz;
+                        currentQuestionIndex = state.currentQuestionIndex;
+                        score = state.score;
+                        
+                        document.getElementById('email-screen').classList.add('hidden');
+                        document.getElementById('quiz-progress').classList.remove('hidden');
+                        document.getElementById('question-screen').classList.remove('hidden');
+                        
+                        showQuestion();
+                        return true;
+                    } catch (e) {
+                        console.error("Failed to parse saved session", e);
+                    }
+                }
+            }
+            return false;
+        }
+
+        checkAndRestoreSession();
     </script>
 </body>
 </html>
