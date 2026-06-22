@@ -1,25 +1,43 @@
 services:
   web:
     build: .
+    restart: always
+    runtime: runsc
     ports:
-      - "5001:5000"
+      - "127.0.0.1:5001:5000"
     environment:
-      - DATABASE_URL=postgresql+pg8000://postgres:postgres@db:5432/sentence_db
+      - DATABASE_URL=postgresql+pg8000://postgres:password@db:5432/sentence_db
     depends_on:
       - db
     volumes:
       - .:/app
+    extra_hosts:
+      - "db:172.20.0.3"
+    networks:
+      quiz_net:
+        ipv4_address: 172.20.0.2
 
   db:
     image: postgres:15-alpine
+    runtime: runsc
+    restart: always
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=sentence_db
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - pre_eval:/var/lib/postgresql/data
+    networks:
+      quiz_net:
+        ipv4_address: 172.20.0.3
 
 volumes:
   pre_eval:
+
+networks:
+  quiz_net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
