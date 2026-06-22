@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="fixed category list scrolling issue">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+    <list default="true" id="91935990-58cd-48ee-9062-a922558866b0" name="Changes" comment="stripped down app">
+      <change beforePath="$PROJECT_DIR$/.idea/sentence_collection.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sentence_collection.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/landing.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/quiz.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/quiz.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/submit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/init_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_categories.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_utils.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +156,7 @@
       <workItem from="1779148758423" duration="3056000" />
       <workItem from="1779719070616" duration="13732000" />
       <workItem from="1779817548013" duration="3346000" />
-      <workItem from="1782134681697" duration="1957000" />
+      <workItem from="1782134681697" duration="2291000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -288,7 +278,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779825097615</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="stripped down app">
+      <option name="closed" value="true" />
+      <created>1782136734423</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1782136734423</updated>
+    </task>
+    <task id="LOCAL-00017" summary="stripped down app">
+      <option name="closed" value="true" />
+      <created>1782136791023</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1782136791023</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +316,7 @@
     <MESSAGE value="removed give away notes and form" />
     <MESSAGE value="added category updater and fixed form bug in survey" />
     <MESSAGE value="fixed category list scrolling issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed category list scrolling issue" />
+    <MESSAGE value="stripped down app" />
+    <option name="LAST_COMMIT_MESSAGE" value="stripped down app" />
   </component>
 </project>

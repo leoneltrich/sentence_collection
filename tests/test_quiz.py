@@ -112,5 +112,42 @@ class TestQuizRoutes(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(data['error'], 'Invalid email address')
 
+    def test_check_email_success(self):
+        response = self.client.post('/quiz/check-email',
+                                    data=json.dumps({'email': 'newuser@example.com'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.data)
+        self.assertEqual(data['message'], 'Email is valid to take the quiz')
+
+    def test_check_email_duplicate(self):
+        email = "already_taken@example.com"
+        # Submit first
+        response1 = self.client.post('/quiz/submit',
+                                     data=json.dumps({
+                                         'email': email,
+                                         'score': 8,
+                                         'total': 10,
+                                         'level': 'expert'
+                                     }),
+                                     content_type='application/json')
+        self.assertEqual(response1.status_code, 201)
+
+        # Check now
+        response2 = self.client.post('/quiz/check-email',
+                                     data=json.dumps({'email': email}),
+                                     content_type='application/json')
+        self.assertEqual(response2.status_code, 400)
+        data = json.loads(response2.data)
+        self.assertIn('already been used', data['error'])
+
+    def test_check_email_invalid(self):
+        response = self.client.post('/quiz/check-email',
+                                    data=json.dumps({'email': 'invalid'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        data = json.loads(response.data)
+        self.assertEqual(data['error'], 'Invalid email address')
+
 if __name__ == '__main__':
     unittest.main()

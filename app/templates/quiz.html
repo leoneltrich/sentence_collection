@@ -51,7 +51,7 @@
         .option-btn {
             background-color: var(--brand-bg);
             color: var(--brand-primary);
-            border: none;
+            border: 2px solid transparent;
             border-radius: var(--border-radius);
             padding: 12px 20px;
             margin-bottom: 10px;
@@ -63,7 +63,6 @@
 
         .option-btn:hover {
             background-color: var(--brand-white);
-            transform: translateX(5px);
         }
 
         .option-btn.selected {
@@ -143,13 +142,25 @@
 
         <div class="card quiz-card shadow">
             <div class="card-body">
+                <!-- Email Screen -->
+                <div id="email-screen">
+                    <h3 class="text-center mb-4">Enter Email to Start</h3>
+                    <p class="small text-center mb-3">Please enter your email address to begin the technical proficiency quiz. You can only take this quiz once.</p>
+                    <div class="mb-3">
+                        <label class="form-label small">Email Address (Required)</label>
+                        <input type="email" id="study-email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <button id="start-quiz-btn" class="btn btn-submit w-100">Start Quiz</button>
+                    <div id="email-feedback" class="notice-text"></div>
+                </div>
+
                 <!-- Progress -->
-                <div id="quiz-progress" class="progress-bar-container">
+                <div id="quiz-progress" class="progress-bar-container hidden">
                     <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
                 </div>
 
                 <!-- Quiz Screen -->
-                <div id="question-screen">
+                <div id="question-screen" class="hidden">
                     <h5 id="question-text" class="mb-4">Loading question...</h5>
                     <div id="options-container" class="d-flex flex-column">
                         <!-- Options injected here -->
@@ -166,16 +177,7 @@
                     
                     <hr style="border-color: rgba(255,255,255,0.2)">
                     
-                    <div id="study-opt-in-section">
-                        <p class="small text-center mb-3">To save your results, please enter your email address. You will receive a follow-up email to help evaluate our system.</p>
-                        <div class="mb-3">
-                            <label class="form-label small">Email Address (Required)</label>
-                            <input type="email" id="study-email" class="form-control" placeholder="your@email.com" required>
-                        </div>
-                        <button id="save-results-btn" class="btn btn-submit w-100">Submit Results</button>
-                    </div>
-
-                    <button onclick="location.reload()" class="btn btn-link text-white w-100 mt-3 small opacity-75 text-decoration-none">Retake Quiz</button>
+                    <div id="save-status-text" class="text-center small opacity-75">Saving your results...</div>
                     <div id="feedback" class="notice-text"></div>
                 </div>
             </div>
@@ -199,10 +201,51 @@
         let currentQuestionIndex = 0;
         let score = 0;
         let shuffledQuiz = [];
+        let userEmail = '';
 
         function shuffle(array) {
             return array.sort(() => Math.random() - 0.5);
         }
+
+        document.getElementById('start-quiz-btn').addEventListener('click', async () => {
+            const emailInput = document.getElementById('study-email').value.trim();
+            const feedback = document.getElementById('email-feedback');
+            const btn = document.getElementById('start-quiz-btn');
+
+            if (!emailInput || !emailInput.includes('@')) {
+                feedback.textContent = "Please enter a valid email address.";
+                return;
+            }
+
+            try {
+                btn.disabled = true;
+                btn.textContent = "Checking...";
+                feedback.textContent = "";
+
+                const response = await fetch('/quiz/check-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailInput })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    userEmail = emailInput;
+                    document.getElementById('email-screen').classList.add('hidden');
+                    document.getElementById('quiz-progress').classList.remove('hidden');
+                    document.getElementById('question-screen').classList.remove('hidden');
+                    startQuiz();
+                } else {
+                    feedback.textContent = result.error || "Validation failed. Please try again.";
+                    btn.disabled = false;
+                    btn.textContent = "Start Quiz";
+                }
+            } catch (err) {
+                feedback.textContent = "Error checking email. Please try again.";
+                btn.disabled = false;
+                btn.textContent = "Start Quiz";
+            }
+        });
 
         function startQuiz() {
             shuffledQuiz = shuffle([...quizData]);
@@ -248,7 +291,7 @@
             return "Expert";
         }
 
-        function showResults() {
+        async function showResults() {
             document.getElementById('question-screen').classList.add('hidden');
             document.getElementById('quiz-progress').classList.add('hidden');
             document.getElementById('results-screen').classList.remove('hidden');
@@ -256,50 +299,35 @@
             document.getElementById('final-score').textContent = score;
             const level = getLevel(score);
             document.getElementById('user-level').textContent = level;
-        }
 
-        document.getElementById('save-results-btn').addEventListener('click', async () => {
-            const email = document.getElementById('study-email').value.trim();
+            const saveStatusText = document.getElementById('save-status-text');
             const feedback = document.getElementById('feedback');
-            const btn = document.getElementById('save-results-btn');
-
-            if (!email || !email.includes('@')) {
-                feedback.textContent = "Please enter a valid email address.";
-                return;
-            }
 
             try {
-                btn.disabled = true;
-                btn.textContent = "Saving...";
-                
                 const response = await fetch('/quiz/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        email: email,
+                        email: userEmail,
                         score: score,
                         total: shuffledQuiz.length,
-                        level: getLevel(score).toLowerCase()
+                        level: level.toLowerCase()
                     })
                 });
-                
+
                 const result = await response.json();
                 if (response.ok) {
+                    saveStatusText.textContent = "";
                     feedback.textContent = result.message;
-                    document.getElementById('study-opt-in-section').classList.add('hidden');
                 } else {
-                    feedback.textContent = result.error || "An error occurred. Please try again.";
-                    btn.disabled = false;
-                    btn.textContent = "Submit Results";
+                    saveStatusText.textContent = "Failed to save results.";
+                    feedback.textContent = result.error || "An error occurred.";
                 }
             } catch (err) {
-                feedback.textContent = "Error saving results. Please try again.";
-                btn.disabled = false;
-                btn.textContent = "Submit Results";
+                saveStatusText.textContent = "Failed to save results.";
+                feedback.textContent = "Error connecting to server.";
             }
-        });
-
-        startQuiz();
+        }
     </script>
 </body>
 </html>

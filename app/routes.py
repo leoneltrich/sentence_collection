@@ -7,6 +7,38 @@ from . import limiter
 
 api = Blueprint('api', __name__)
 
+@api.route('/quiz/check-email', methods=['POST'])
+@limiter.limit("10 per minute")
+def check_email():
+    """
+    Check if email is valid and has not taken the quiz
+    """
+    data = request.get_json()
+    if not data or 'email' not in data:
+        return jsonify({'error': 'Email is required'}), 400
+        
+    email_raw = data['email']
+    # 1. Converted to lowercase
+    email_lower = email_raw.lower()
+    # 2. Stripped of any leading/trailing whitespace
+    email_stripped = email_lower.strip()
+    
+    # Simple email validation
+    if not email_stripped or not re.match(r"[^@]+@[^@]+\.[^@]+", email_stripped):
+        return jsonify({'error': 'Invalid email address'}), 400
+        
+    # 3. Encoded as UTF-8 bytes
+    email_bytes = email_stripped.encode('utf-8')
+    # 4. Hashed using standard SHA-256 to produce a 64-character hexadecimal representation
+    hashed_email = hashlib.sha256(email_bytes).hexdigest()
+    
+    # Check if this email hash already exists in DB
+    existing = QuizResult.query.filter_by(email=hashed_email).first()
+    if existing:
+        return jsonify({'error': 'This email has already been used to take the quiz.'}), 400
+        
+    return jsonify({'message': 'Email is valid to take the quiz'}), 200
+
 @api.route('/quiz/submit', methods=['POST'])
 @limiter.limit("10 per minute")
 def submit_quiz():
