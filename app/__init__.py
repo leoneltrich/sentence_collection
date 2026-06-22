@@ -37,21 +37,6 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
         from flask import render_template
-        return render_template('landing.html')
-
-    @app.route('/admin')
-    def admin_page():
-        from flask import render_template
-        return render_template('index.html')
-
-    @app.route('/submit')
-    def submit_page():
-        from flask import render_template
-        return render_template('submit.html')
-
-    @app.route('/quiz')
-    def quiz_page():
-        from flask import render_template
         return render_template('quiz.html')
     
     return app

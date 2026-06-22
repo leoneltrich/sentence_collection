@@ -167,12 +167,12 @@
                     <hr style="border-color: rgba(255,255,255,0.2)">
                     
                     <div id="study-opt-in-section">
-                        <p class="small text-center mb-3">Would you like to opt into our study and get a chance to win a 15€ Amazon gift card? You'll receive a follow-up email to help evaluate our system.</p>
+                        <p class="small text-center mb-3">To save your results, please enter your email address. You will receive a follow-up email to help evaluate our system.</p>
                         <div class="mb-3">
-                            <label class="form-label small">Email Address</label>
-                            <input type="email" id="study-email" class="form-control" placeholder="your@email.com">
+                            <label class="form-label small">Email Address (Required)</label>
+                            <input type="email" id="study-email" class="form-control" placeholder="your@email.com" required>
                         </div>
-                        <button id="save-results-btn" class="btn btn-submit w-100">Submit to Study</button>
+                        <button id="save-results-btn" class="btn btn-submit w-100">Submit Results</button>
                     </div>
 
                     <button onclick="location.reload()" class="btn btn-link text-white w-100 mt-3 small opacity-75 text-decoration-none">Retake Quiz</button>
@@ -259,7 +259,7 @@
         }
 
         document.getElementById('save-results-btn').addEventListener('click', async () => {
-            const email = document.getElementById('study-email').value;
+            const email = document.getElementById('study-email').value.trim();
             const feedback = document.getElementById('feedback');
             const btn = document.getElementById('save-results-btn');
 
@@ -288,14 +288,14 @@
                     feedback.textContent = result.message;
                     document.getElementById('study-opt-in-section').classList.add('hidden');
                 } else {
-                    feedback.textContent = result.error;
+                    feedback.textContent = result.error || "An error occurred. Please try again.";
                     btn.disabled = false;
-                    btn.textContent = "Submit to Study";
+                    btn.textContent = "Submit Results";
                 }
             } catch (err) {
                 feedback.textContent = "Error saving results. Please try again.";
                 btn.disabled = false;
-                btn.textContent = "Submit to Study";
+                btn.textContent = "Submit Results";
             }
         });
 

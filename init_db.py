@@ -1,6 +1,6 @@
 import time
 from app import create_app
-from app.models import db, Category
+from app.models import db
 
 app = create_app()
 

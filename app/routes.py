@@ -1,324 +1,11 @@
-from flask import Blueprint, request, jsonify, Response
-import io
-import csv
+from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import IntegrityError
-from .models import db, Sentence, Category
-from .utils import normalize_sentence
+import hashlib
+import re
+from .models import db, QuizResult
 from . import limiter
 
 api = Blueprint('api', __name__)
-
-@api.route('/download/all')
-def download_all():
-    """
-    Download all sentences as CSV
-    ---
-    responses:
-      200:
-        description: A CSV file containing all sentences
-    """
-    from sqlalchemy.orm import joinedload
-    sentences = Sentence.query.options(joinedload(Sentence.giveaway_entry), joinedload(Sentence.category)).all()
-    
-    def generate():
-        data = io.StringIO()
-        writer = csv.writer(data)
-        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Category', 'Source', 'Giveaway Email'])
-        yield data.getvalue()
-        data.seek(0)
-        data.truncate(0)
-
-        for s in sentences:
-            email = s.giveaway_entry.email if s.giveaway_entry else ''
-            writer.writerow([s.id, s.original_text, s.normalized_text, s.category.name, s.source or '', email])
-            yield data.getvalue()
-            data.seek(0)
-            data.truncate(0)
-
-    return Response(
-        generate(),
-        mimetype='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=all_sentences.csv'}
-    )
-
-@api.route('/download/category/<int:category_id>')
-def download_category(category_id):
-    """
-    Download sentences from a specific category as CSV
-    ---
-    parameters:
-      - name: category_id
-        in: path
-        type: integer
-        required: true
-    responses:
-      200:
-        description: A CSV file containing sentences from the category
-      404:
-        description: Category not found
-    """
-    category = Category.query.get_or_404(category_id)
-    sentences = Sentence.query.filter_by(category_id=category_id).all()
-    
-    def generate():
-        data = io.StringIO()
-        writer = csv.writer(data)
-        writer.writerow(['ID', 'Original Text', 'Normalized Text', 'Source'])
-        yield data.getvalue()
-        data.seek(0)
-        data.truncate(0)
-
-        for s in sentences:
-            writer.writerow([s.id, s.original_text, s.normalized_text, s.source or ''])
-            yield data.getvalue()
-            data.seek(0)
-            data.truncate(0)
-
-    filename = f"category_{category.name.lower().replace(' ', '_')}_sentences.csv"
-    return Response(
-        generate(),
-        mimetype='text/csv',
-        headers={'Content-Disposition': f'attachment; filename={filename}'}
-    )
-
-@api.route('/download/quiz')
-def download_quiz():
-    """
-    Download all quiz results as CSV
-    ---
-    responses:
-      200:
-        description: A CSV file containing all quiz results
-    """
-    from .models import QuizResult
-    results = QuizResult.query.all()
-    
-    def generate():
-        data = io.StringIO()
-        writer = csv.writer(data)
-        writer.writerow(['ID', 'Email', 'Score', 'Total Questions', 'Level', 'Timestamp'])
-        yield data.getvalue()
-        data.seek(0)
-        data.truncate(0)
-
-        for r in results:
-            writer.writerow([r.id, r.email, r.score, r.total_questions, r.level, r.created_at])
-            yield data.getvalue()
-            data.seek(0)
-            data.truncate(0)
-
-    return Response(
-        generate(),
-        mimetype='text/csv',
-        headers={'Content-Disposition': 'attachment; filename=quiz_results.csv'}
-    )
-
-@api.route('/categories', methods=['GET'])
-def get_categories():
-    """
-    List all categories
-    ---
-    responses:
-      200:
-        description: A list of categories
-    """
-    categories = Category.query.all()
-    return jsonify([{
-        'id': c.id,
-        'name': c.name,
-        'description': c.description
-    } for c in categories])
-
-@api.route('/categories', methods=['POST'])
-@limiter.limit("10 per minute")
-def add_category():
-    """
-    Create a new category
-    ---
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-    responses:
-      201:
-        description: Category created
-      400:
-        description: Invalid input
-      409:
-        description: Category already exists
-    """
-    data = request.get_json()
-    if not data or 'name' not in data:
-        return jsonify({'error': 'Category name is required'}), 400
-    
-    try:
-        new_category = Category(
-            name=data['name'],
-            description=data.get('description', '')
-        )
-        db.session.add(new_category)
-        db.session.commit()
-        return jsonify({'message': 'Category added successfully', 'id': new_category.id}), 201
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({'error': 'Category already exists'}), 409
-
-@api.route('/categories/<int:category_id>', methods=['PUT'])
-@limiter.limit("10 per minute")
-def update_category(category_id):
-    """
-    Update an existing category
-    ---
-    parameters:
-      - name: category_id
-        in: path
-        type: integer
-        required: true
-      - name: body
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-            description:
-              type: string
-    responses:
-      200:
-        description: Category updated
-      400:
-        description: Invalid input
-      404:
-        description: Category not found
-      409:
-        description: Category name already exists
-    """
-    category = Category.query.get_or_404(category_id)
-    data = request.get_json()
-    
-    if not data:
-        return jsonify({'error': 'No data provided'}), 400
-    
-    if 'name' in data:
-        category.name = data['name']
-    if 'description' in data:
-        category.description = data.get('description', '')
-        
-    try:
-        db.session.commit()
-        return jsonify({'message': 'Category updated successfully'}), 200
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({'error': 'Category name already exists'}), 409
-
-@api.route('/sentences', methods=['POST'])
-@limiter.limit("20 per minute")
-def add_sentence():
-    """
-    Add a new sentence
-    ---
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            text:
-              type: string
-            category_id:
-              type: integer
-            email:
-              type: string
-            source:
-              type: string
-              enum: [manual, survey, llm]
-    responses:
-      201:
-        description: Sentence added
-      400:
-        description: Invalid input
-      404:
-        description: Category not found
-      409:
-        description: Sentence already exists (normalized check)
-    """
-    data = request.get_json()
-    if not data or 'text' not in data or 'category_id' not in data:
-        return jsonify({'error': 'Sentence text and category_id are required'}), 400
-    
-    original_text = data['text']
-    normalized_text = normalize_sentence(original_text)
-    category_id = data['category_id']
-    email = data.get('email')
-    
-    # Handle source validation
-    source = data.get('source')
-    if source not in ['manual', 'survey', 'llm']:
-        source = None
-    
-    # Verify category exists
-    category = Category.query.get(category_id)
-    if not category:
-        return jsonify({'error': 'Category not found'}), 404
-
-    try:
-        new_sentence = Sentence(
-            original_text=original_text,
-            normalized_text=normalized_text,
-            category_id=category_id,
-            source=source
-        )
-        db.session.add(new_sentence)
-        db.session.flush() # Get the ID before committing
-
-        if email:
-            from .models import GiveawayEntry
-            entry = GiveawayEntry(email=email, sentence_id=new_sentence.id)
-            db.session.add(entry)
-
-        db.session.commit()
-        return jsonify({'message': 'Sentence added successfully', 'id': new_sentence.id}), 201
-    except IntegrityError:
-        # This handles concurrent submissions of the same normalized sentence
-        db.session.rollback()
-        return jsonify({'error': 'Sentence already existed and was not added'}), 409
-
-@api.route('/stats', methods=['GET'])
-@limiter.limit("60 per minute")
-def get_stats():
-    """
-    Get sentence statistics
-    ---
-    responses:
-      200:
-        description: Statistics including total count and per-category breakdown
-    """
-    total_count = Sentence.query.count()
-    
-    # Sentence count per category
-    categories = Category.query.all()
-    category_stats = []
-    for cat in categories:
-        count = Sentence.query.filter_by(category_id=cat.id).count()
-        category_stats.append({
-            'category_id': cat.id,
-            'category_name': cat.name,
-            'count': count
-        })
-        
-    return jsonify({
-        'total_sentences': total_count,
-        'category_stats': category_stats
-    })
 
 @api.route('/quiz/submit', methods=['POST'])
 @limiter.limit("10 per minute")
@@ -345,16 +32,35 @@ def submit_quiz():
       201:
         description: Quiz result stored
       400:
-        description: Invalid input
+        description: Invalid input or email already used
     """
     data = request.get_json()
     if not data or 'email' not in data or 'score' not in data or 'level' not in data:
         return jsonify({'error': 'Missing required quiz data'}), 400
     
+    email_raw = data['email']
+    # 1. Converted to lowercase
+    email_lower = email_raw.lower()
+    # 2. Stripped of any leading/trailing whitespace
+    email_stripped = email_lower.strip()
+    
+    # Simple email validation
+    if not email_stripped or not re.match(r"[^@]+@[^@]+\.[^@]+", email_stripped):
+        return jsonify({'error': 'Invalid email address'}), 400
+    
+    # 3. Encoded as UTF-8 bytes
+    email_bytes = email_stripped.encode('utf-8')
+    # 4. Hashed using standard SHA-256 to produce a 64-character hexadecimal representation
+    hashed_email = hashlib.sha256(email_bytes).hexdigest()
+    
+    # Check if this email hash already exists in DB
+    existing = QuizResult.query.filter_by(email=hashed_email).first()
+    if existing:
+        return jsonify({'error': 'This email has already been used to take the quiz.'}), 400
+        
     try:
-        from .models import QuizResult
         new_result = QuizResult(
-            email=data['email'],
+            email=hashed_email,
             score=data['score'],
             total_questions=data.get('total', 10),
             level=data['level']
@@ -362,6 +68,9 @@ def submit_quiz():
         db.session.add(new_result)
         db.session.commit()
         return jsonify({'message': 'Quiz results saved. Thank you for participating!'}), 201
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({'error': 'This email has already been used to take the quiz.'}), 400
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
